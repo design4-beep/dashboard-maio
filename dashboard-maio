@@ -3,191 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Performance - Maio 2026</title>
+    <title>Dashboard Notion - Performance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0F172A; /* Fundo idêntico ao estilo Notion Dark */
+            background-color: #191919; /* Cor exata de fundo do Notion Dark */
+        }
+        .notion-card {
+            background-color: #202020;
+            border: 1px solid #2a2a2a;
         }
     </style>
 </head>
-<body class="p-4 md:p-6 text-slate-300">
+<body class="p-4 md:p-6 text-[#FFFFFFDE]">
 
     <div class="max-w-7xl mx-auto space-y-6">
         
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-slate-800 pb-5">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-[#2a2a2a] pb-4">
             <div>
-                <h1 class="text-xl font-bold text-white tracking-tight">Performance Integrada da Loja</h1>
-                <p class="text-xs text-slate-400 mt-1">Período Consolidado &amp; Campanhas: 01/05/2026 a 31/05/2026</p>
+                <h1 class="text-xl font-bold text-white tracking-tight">Dashboard de Performance Comercial</h1>
+                <p class="text-xs text-gray-400 mt-1">Dados Consolidados e Atualizados — Integração Completa</p>
             </div>
-            <div class="mt-3 sm:mt-0 flex gap-2">
-                <span class="bg-indigo-950/60 text-indigo-400 text-[11px] font-medium px-2.5 py-1 rounded border border-indigo-900/50">Omnichannel</span>
-                <span class="bg-emerald-950/60 text-emerald-400 text-[11px] font-medium px-2.5 py-1 rounded border border-emerald-900/50 font-mono">V2.0.0</span>
+            <div class="mt-2 sm:mt-0">
+                <span class="bg-[#2e2e2e] text-gray-300 text-[11px] font-medium px-2.5 py-1 rounded border border-[#3e3e3e]">Maio 2026</span>
             </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="bg-[#1E293B] p-5 rounded-xl border border-slate-800 shadow-lg">
-                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Faturamento Consolidado</p>
-                <p class="text-2xl font-bold mt-2 text-white font-mono">R$ 4.861,36</p>
-                <p class="text-[11px] text-slate-500 mt-2">Pedidos pagos e conciliados</p>
+            <div class="notion-card p-5 rounded-xl shadow-lg">
+                <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">Vendas Realizadas (R$)</p>
+                <p class="text-2xl font-bold mt-2 text-white font-mono">R$ 51.520,00</p>
+                <p class="text-[11px] text-emerald-400 mt-2 flex items-center">↑ Valor Bruto Consolidado</p>
             </div>
-            <div class="bg-[#1E293B] p-5 rounded-xl border border-slate-800 shadow-lg">
-                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Produtos Vendidos (Valor)</p>
-                <p class="text-2xl font-bold mt-2 text-emerald-400 font-mono">R$ 5.138,50</p>
-                <p class="text-[11px] text-emerald-500/80 mt-2">Volume bruto total em peças</p>
+            <div class="notion-card p-5 rounded-xl shadow-lg">
+                <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">Vendas Realizadas (Un.)</p>
+                <p class="text-2xl font-bold mt-2 text-blue-400 font-mono">67 pedidos</p>
+                <p class="text-[11px] text-gray-400 mt-2">Transações aprovadas</p>
             </div>
-            <div class="bg-[#1E293B] p-5 rounded-xl border border-slate-800 shadow-lg">
-                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Total de Pedidos Gerados</p>
-                <p class="text-2xl font-bold mt-2 text-blue-400 font-mono">4 Pedidos</p>
-                <p class="text-[11px] text-blue-500/80 mt-2">Visualização da lista ativa</p>
+            <div class="notion-card p-5 rounded-xl shadow-lg">
+                <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">Visitas na Loja</p>
+                <p class="text-2xl font-bold mt-2 text-purple-400 font-mono">4.254</p>
+                <p class="text-[11px] text-gray-500 mt-2">Tráfego total verificado</p>
             </div>
-            <div class="bg-[#1E293B] p-5 rounded-xl border border-slate-800 shadow-lg">
-                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Ticket Médio Geral</p>
-                <p class="text-2xl font-bold mt-2 text-white font-mono">R$ 1.215,34</p>
-                <p class="text-[11px] text-slate-500 mt-2">Por cliente ativo no mês</p>
+            <div class="notion-card p-5 rounded-xl shadow-lg">
+                <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">Conversão da Loja Virtual</p>
+                <p class="text-2xl font-bold mt-2 text-white font-mono">1,57%</p>
+                <p class="text-[11px] text-emerald-400 mt-2">Dentro da média de mercado</p>
             </div>
         </div>
 
-        <div class="bg-[#1E293B] p-5 rounded-xl border border-slate-800 shadow-lg">
-            <h2 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Funil Geral de Conversão (RD Station)</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-                <div class="bg-[#0F172A] p-3.5 rounded-lg border border-slate-800 text-center">
-                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Visitantes</p>
+        <div class="notion-card p-5 rounded-xl shadow-lg">
+            <h2 class="text-xs font-semibold text-gray-300 uppercase tracking-wider mb-4">Etapas do Funil de Conversão</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                <div class="bg-[#191919] p-4 rounded-lg border border-[#2a2a2a] text-center">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Visitantes Únicos</p>
                     <p class="text-lg font-bold text-white mt-1 font-mono">3.537</p>
-                    <p class="text-[10px] text-emerald-500 mt-0.5">↑ +23,9%</p>
                 </div>
-                <div class="bg-[#0F172A] p-3.5 rounded-lg border border-slate-800 text-center relative">
-                    <p class="text-[10px] font-bold text-blue-400 uppercase tracking-wider">Leads</p>
+                <div class="bg-[#191919] p-4 rounded-lg border border-[#2a2a2a] text-center">
+                    <p class="text-[10px] font-bold text-blue-400 uppercase tracking-wider">Leads Gerados</p>
                     <p class="text-lg font-bold text-blue-400 mt-1 font-mono">23</p>
-                    <p class="text-[10px] text-rose-500 mt-0.5">↓ -99,9%</p>
                 </div>
-                <div class="bg-[#0F172A] p-3.5 rounded-lg border border-slate-800 text-center">
-                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Leads Qualif.</p>
-                    <p class="text-lg font-bold text-slate-600 mt-1 font-mono">-</p>
-                    <p class="text-[10px] text-slate-600 mt-0.5">0 (0,0%)</p>
+                <div class="bg-[#191919] p-4 rounded-lg border border-[#2a2a2a] text-center">
+                    <p class="text-[10px] font-bold text-amber-400 uppercase tracking-wider">Oportunidades</p>
+                    <p class="text-lg font-bold text-amber-400 mt-1 font-mono">3</p>
                 </div>
-                <div class="bg-[#0F172A] p-3.5 rounded-lg border border-slate-800 text-center">
-                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Oportunidades</p>
-                    <p class="text-lg font-bold text-white mt-1 font-mono">3</p>
-                    <p class="text-[10px] text-rose-500 mt-0.5">↓ -85,0%</p>
-                </div>
-                <div class="bg-[#0F172A] p-3.5 rounded-lg border border-slate-800 text-center">
-                    <p class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Vendas</p>
+                <div class="bg-[#191919] p-4 rounded-lg border border-[#2a2a2a] text-center">
+                    <p class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Vendas Finais</p>
                     <p class="text-lg font-bold text-emerald-400 mt-1 font-mono">3</p>
-                    <p class="text-[10px] text-rose-500 mt-0.5">↓ -78,5%</p>
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div class="bg-[#1E293B] p-5 rounded-xl border border-slate-800 shadow-lg">
-                <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-3">Mais Vendidos (Faturamento Direto)</h3>
-                <div class="divide-y divide-slate-800 text-xs">
-                    <div class="py-3 flex justify-between items-center">
-                        <div>
-                            <p class="font-medium text-slate-200">JALECO MASCULINO PRIME CLÁSSICO - BRANCO</p>
-                            <p class="text-[11px] text-slate-500">Estoque atual: 15 unidades</p>
-                        </div>
-                        <span class="font-mono font-bold text-emerald-400 text-right">R$ 377,50 <br><span class="text-[10px] text-slate-500 font-normal">1 un.</span></span>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <div class="notion-card p-5 rounded-xl shadow-lg lg:col-span-1">
+                <h3 class="text-xs font-semibold text-gray-300 uppercase tracking-wider mb-4">Produtos Mais Vistos</h3>
+                <div class="space-y-3 text-xs text-gray-300">
+                    <div class="p-2.5 bg-[#191919] rounded border border-[#2a2a2a] flex justify-between items-center">
+                        <span>Camisa Scrub Feminina Harmonia</span>
+                        <span class="font-mono text-gray-400 font-bold">198</span>
                     </div>
-                    <div class="py-3 flex justify-between items-center">
-                        <div>
-                            <p class="font-medium text-slate-200">JALECO FEMININO PRIME CLÁSSICO - BRANCO</p>
-                            <p class="text-[11px] text-slate-500">Estoque atual: 18 unidades</p>
-                        </div>
-                        <span class="font-mono font-bold text-emerald-400 text-right">R$ 344,50 <br><span class="text-[10px] text-slate-500 font-normal">1 un.</span></span>
+                    <div class="p-2.5 bg-[#191919] rounded border border-[#2a2a2a] flex justify-between items-center">
+                        <span>Camisa Scrub Masculino Bem-Estar</span>
+                        <span class="font-mono text-gray-400 font-bold">137</span>
+                    </div>
+                    <div class="p-2.5 bg-[#191919] rounded border border-[#2a2a2a] flex justify-between items-center">
+                        <span>Camisa Scrub Feminino Bem-Estar</span>
+                        <span class="font-mono text-gray-400 font-bold">125</span>
+                    </div>
+                    <div class="p-2.5 bg-[#191919] rounded border border-[#2a2a2a] flex justify-between items-center">
+                        <span>Calça Scrub Feminina Conforto Flex</span>
+                        <span class="font-mono text-gray-400 font-bold">112</span>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-[#1E293B] p-5 rounded-xl border border-slate-800 shadow-lg flex flex-col justify-between">
-                <div>
-                    <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-3">Status de Pagamento (E-commerce)</h3>
-                    <div class="grid grid-cols-2 gap-4 bg-[#0F172A] p-4 rounded-lg border border-slate-800 text-center">
-                        <div>
-                            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Pago (PIX/Cartão)</p>
-                            <p class="text-xl font-bold text-emerald-400 font-mono mt-1">R$ 760,40</p>
-                        </div>
-                        <div class="border-l border-slate-800">
-                            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Pendente</p>
-                            <p class="text-xl font-bold text-slate-600 font-mono mt-1">R$ 0,00</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-[11px] text-slate-400 space-y-1.5 mt-4 pt-3 border-t border-slate-800">
-                    <p><span class="text-blue-400">●</span> <strong>Status Gerais:</strong> Divisão proporcional igualitária entre Cancelados, Enviados e Finalizados.</p>
-                    <p><span class="text-emerald-400">●</span> <strong>Conversão RD:</strong> 100% de aproveitamento das oportunidades validadas comercialmente.</p>
+            <div class="notion-card p-5 rounded-xl shadow-lg lg:col-span-2">
+                <h3 class="text-xs font-semibold text-gray-300 uppercase tracking-wider mb-4">Evolução do Tráfego no Período</h3>
+                <div class="h-48">
+                    <canvas id="notionChart"></canvas>
                 </div>
             </div>
         </div>
 
-        <div class="bg-[#1E293B] p-5 rounded-xl border border-slate-800 shadow-lg">
-            <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Relatório de Campanhas de E-mail Marketing</h3>
+        <div class="notion-card p-5 rounded-xl shadow-lg">
+            <h3 class="text-xs font-semibold text-gray-300 uppercase tracking-wider mb-4">Métricas de Campanhas de E-mail</h3>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs border-collapse">
                     <thead>
-                        <tr class="bg-[#0F172A] text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
+                        <tr class="bg-[#191919] text-gray-400 uppercase text-[10px] tracking-wider border-b border-[#2a2a2a]">
                             <th class="py-3 px-4 font-semibold">Campanha</th>
-                            <th class="py-3 px-4 font-semibold">Data Envio</th>
-                            <th class="py-3 px-4 font-semibold text-right">Volume</th>
-                            <th class="py-3 px-4 font-semibold text-right">Abertura</th>
-                            <th class="py-3 px-4 font-semibold text-right">Cliques (CTOR)</th>
-                            <th class="py-3 px-4 font-semibold text-right">Descadastros</th>
-                            <th class="py-3 px-4 font-semibold text-right">Spam</th>
+                            <th class="py-3 px-4 font-semibold">Cliques Únicos</th>
+                            <th class="py-3 px-4 font-semibold text-right">Aberturas</th>
+                            <th class="py-3 px-4 font-semibold text-right">Entregues</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-800 font-medium text-slate-300">
-                        <tr class="hover:bg-[#243146] transition-colors">
-                            <td class="py-3 px-4 text-blue-400 font-semibold">Inverno Coleção BiiO</td>
-                            <td class="py-3 px-4 text-slate-400 font-normal">29/05/2026 17:04</td>
+                    <tbody class="divide-y divide-[#2a2a2a] text-gray-300">
+                        <tr class="hover:bg-[#252525] transition-colors">
+                            <td class="py-3 px-4 font-medium text-blue-400">Inverno Coleção BiiO</td>
+                            <td class="py-3 px-4 font-mono">12,27%</td>
+                            <td class="py-3 px-4 text-right font-mono">626</td>
                             <td class="py-3 px-4 text-right font-mono">5.104</td>
-                            <td class="py-3 px-4 text-right font-mono">12,27%</td>
-                            <td class="py-3 px-4 text-right font-mono text-emerald-400">0,18%</td>
-                            <td class="py-3 px-4 text-right font-mono text-rose-400">0,33%</td>
-                            <td class="py-3 px-4 text-right font-mono">0,12%</td>
                         </tr>
-                        <tr class="hover:bg-[#243146] transition-colors">
-                            <td class="py-3 px-4 text-blue-400 font-semibold">Adeus, jalecos sem graça</td>
-                            <td class="py-3 px-4 text-slate-400 font-normal">22/05/2026 09:00</td>
+                        <tr class="hover:bg-[#252525] transition-colors">
+                            <td class="py-3 px-4 font-medium text-blue-400">Adeus, jalecos sem graça</td>
+                            <td class="py-3 px-4 font-mono">13,29%</td>
+                            <td class="py-3 px-4 text-right font-mono">688</td>
                             <td class="py-3 px-4 text-right font-mono">5.177</td>
-                            <td class="py-3 px-4 text-right font-mono">13,29%</td>
-                            <td class="py-3 px-4 text-right font-mono text-emerald-400">0,55%</td>
-                            <td class="py-3 px-4 text-right font-mono text-rose-400">0,85%</td>
-                            <td class="py-3 px-4 text-right font-mono">0,16%</td>
                         </tr>
-                        <tr class="hover:bg-[#243146] transition-colors">
-                            <td class="py-3 px-4 text-blue-400 font-semibold">BiiO Corporate</td>
-                            <td class="py-3 px-4 text-slate-400 font-normal">14/05/2026 08:00</td>
+                        <tr class="hover:bg-[#252525] transition-colors">
+                            <td class="py-3 px-4 font-medium text-blue-400">BiiO Corporate</td>
+                            <td class="py-3 px-4 font-mono">12,40%</td>
+                            <td class="py-3 px-4 text-right font-mono">651</td>
                             <td class="py-3 px-4 text-right font-mono">5.255</td>
-                            <td class="py-3 px-4 text-right font-mono">12,40%</td>
-                            <td class="py-3 px-4 text-right font-mono text-emerald-400">0,65%</td>
-                            <td class="py-3 px-4 text-right font-mono text-rose-400">0,74%</td>
-                            <td class="py-3 px-4 text-right font-mono">0,10%</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <div class="bg-[#1E293B] p-5 rounded-xl border border-slate-800 shadow-lg">
-            <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Evolução do Tráfego Diário da Loja</h3>
-            <div class="h-60">
-                <canvas id="notionDarkChart"></canvas>
-            </div>
-        </div>
-
     </div>
 
     <script>
-        const ctx = document.getElementById('notionDarkChart').getContext('2d');
-        const labels = Array.from({length: 31}, (_, i) => `${String(i + 1).padStart(2, '0')}/05`);
-        const visitas = [
-            40, 50, 75, 120, 560, 180, 50, 45, 60, 90, 80, 150, 400, 590, 190, 
-            65, 70, 85, 90, 110, 140, 510, 200, 85, 95, 115, 105, 530, 150, 140, 120
+        const ctx = document.getElementById('notionChart').getContext('2d');
+        const labels = Array.from({length: 30}, (_, i) => `${i + 1} Mai`);
+        const dataVisitas = [
+            45, 60, 55, 110, 540, 210, 70, 65, 80, 95, 85, 140, 390, 580, 180, 
+            75, 80, 90, 95, 115, 130, 490, 220, 90, 100, 120, 110, 520, 160, 130
         ];
 
         new Chart(ctx, {
@@ -195,10 +160,10 @@
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Visitas',
-                    data: visitas,
-                    borderColor: '#60a5fa', /* Azul elétrico vibrante */
-                    backgroundColor: 'rgba(96, 165, 250, 0.08)',
+                    label: 'Visitas Diárias',
+                    data: dataVisitas,
+                    borderColor: '#3b82f6', /* Azul elétrico idêntico ao original */
+                    backgroundColor: 'rgba(59, 130, 246, 0.05)',
                     borderWidth: 2,
                     fill: true,
                     tension: 0.3,
@@ -211,13 +176,12 @@
                 plugins: { legend: { display: false } },
                 scales: {
                     y: { 
-                        beginAtZero: true, 
-                        grid: { color: '#334155' },
-                        ticks: { color: '#94a3b8', font: { size: 10 } }
+                        grid: { color: '#2a2a2a' },
+                        ticks: { color: '#888', font: { size: 10 } }
                     },
                     x: { 
                         grid: { display: false },
-                        ticks: { color: '#94a3b8', font: { size: 9 } }
+                        ticks: { color: '#888', font: { size: 9 } }
                     }
                 }
             }
