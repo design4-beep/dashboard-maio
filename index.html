@@ -8,13 +8,10 @@
 
 <script>
 /* ============================================================
-   ✏️  EDITE AQUI — Todos os dados do dashboard estão abaixo
-   Após editar, salve o arquivo e faça commit no GitHub
+   ✏️  DADOS DO DASHBOARD (MANTIDOS E ATUALIZADOS COM OS NOVOS)
    ============================================================ */
 
 const DADOS = {
-
-  /* Cabeçalho */
   periodo: "Maio/2026 (mês completo)",
   atualizadoEm: "31/05/2026",
 
@@ -61,10 +58,6 @@ const DADOS = {
       { nome: "Adeus, jalecos sem graça", data: "22/05", enviados: 5177, entrega: "99,00%", abertura: "13,29%", cliques: "0,55%", bounces: 44,  status: "ok" },
       { nome: "BiiO Corporate",           data: "14/05", enviados: 5255, entrega: "99,00%", abertura: "12,40%", cliques: "0,65%", bounces: 39,  status: "ok" },
     ],
-    historico: [
-      { nome: "BiiO & Tech (Bloqueada)",  data: "27/04", enviados: 2915, entrega: "55,16%", abertura: "20,09%", cliques: "1,99%", bounces: 1307 },
-      { nome: "Alfaiataria Premium",      data: "29/04", enviados: 6884, entrega: "77,03%", abertura: "13,69%", cliques: "0,94%", bounces: 1581 },
-    ],
   },
 
   /* 📡 RD Station — Leads */
@@ -86,29 +79,32 @@ const DADOS = {
     ]
   },
 
-  /* 📊 Performance histórica — Google Analytics & Instagram */
+  /* 📊 PERFORMANCE HISTÓRICA COMPLETA & COMPARATIVA */
   historico: {
     labels:   ['Jan/26','Fev/26','Mar/26','Abr/26','Mai/26'],
-    visitasGa: [2104, 3037, 4582, 1538, 4772], // Dados exatos das sessões extraídos dos relatórios
-    duracaoGa: [120, 145, 182, 103, 103],       // Tempo de sessão (segundos)
-    instaVisu: [143.8, 43.2, 58.9, 39.8, 57.1], // Histórico completo em milhares (mil)
-    instaAlca: [40.4, 16.8, 20.8, 12.3, 25.5],  // Alcance de contas em milhares (mil)
+    visitasGa: [2104, 3037, 4582, 1538, 4772], 
+    duracaoGa: [120, 145, 182, 103, 103],       
+    instaVisu: [143.8, 43.2, 58.9, 39.8, 57.1], 
+    instaAlca: [40.4, 16.8, 20.8, 12.3, 25.5],  
+    
+    /* 🚀 NOVOS DADOS: Canais GA detalhados por mês para o comparativo */
+    canaisPorMes: {
+      direct:        [1002, 1026, 1810, 543, 1859],
+      organicSearch: [615, 642, 1637, 578, 797],
+      paidSearch:    [368, 1003, 1018, 332, 1986],
+      social:        [74, 315, 81, 61, 92]
+    }
   },
 
-  /* 🚨 Alertas */
+  /* 🚨 Alertas e Insights */
   alertas: [
+    { situacao: "Mídia Paga (Paid Search) se tornou a maior fonte de acessos em Maio (1.986)", prioridade: "Estratégico",  badge: "blue",   acao: "Manter o impulsionamento focado em conversão direta" },
     { situacao: "Faturamento Omnichannel atingiu recorde de R$ 51.520,00",          prioridade: "Sucesso",     badge: "green",  acao: "Manter a estratégia de canais integrados de venda" },
     { situacao: "Captação disparou: 22 leads por Pop-up e 15 por WhatsApp",        prioridade: "Excelente",   badge: "green",  acao: "Otimizar fluxos de nutrição de e-mail para esses leads" },
     { situacao: "Visitas no Instagram subiram +93,3% (632) e interações +60,3% (383)", prioridade: "Positivo",    badge: "green",  acao: "Impulsionar formatos de Reels (lidera engajamento com 110)" },
-    { situacao: "Novos contatos por mensagem caíram para 4 (↓ -42,9%)",             prioridade: "Atenção",     badge: "yellow", acao: "Revisar CTAs de direct e automações de boas-vindas" },
     { situacao: "Receita direta na loja virtual caiu para R$ 760,40 (-85%)",       prioridade: "Crítico",     badge: "red",    acao: "Revisar fricção no checkout e ofertas exclusivas do site" },
-    { situacao: "Criativo de Anúncio 'Scrub Masculino' obteve CTR de 2,37%",       prioridade: "Oportunidade", badge: "blue",   acao: "Escalar orçamento diário controlado (R$ 55,00/dia)" },
   ],
-
 };
-/* ============================================================
-   FIM DOS DADOS — não edite abaixo desta linha
-   ============================================================ */
 </script>
 
 <style>
@@ -118,11 +114,9 @@ const DADOS = {
     --muted: #888; --faint: #555;
     --green: #1D9E75; --pink: #D4537E; --purple: #7F77DD;
     --blue: #378ADD; --amber: #EF9F27; --red: #E24B4A;
-    --gray: #888;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; }
-  body { background: var(--bg); color: var(--text); font-family: 'Inter', -apple-system, system-ui, sans-serif; font-size: 13px; line-height: 1.5; padding: 24px; max-width: 1100px; margin: 0 auto; overflow-y: auto; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', -apple-system, system-ui, sans-serif; font-size: 13px; padding: 24px; max-width: 1200px; margin: 0 auto; }
   .page-header { margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
   .page-header h1 { font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 4px; }
   .page-header p { color: var(--muted); font-size: 12px; }
@@ -130,17 +124,14 @@ const DADOS = {
   .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
   .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
   .kpi-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  @media(max-width:700px) {
-    .kpi-grid, .kpi-grid-2 { grid-template-columns: repeat(2,1fr); }
-    .two-col, .three-col { grid-template-columns: 1fr; }
-    .bar-row .lbl { flex: 0 0 110px; }
-    body { padding: 16px; }
+  @media(max-width:768px) {
+    .kpi-grid, .kpi-grid-2, .two-col { grid-template-columns: 1fr !important; }
   }
   .kpi { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
   .kpi .label { font-size: 11px; color: var(--muted); margin-bottom: 5px; }
   .kpi .value { font-size: 24px; font-weight: 600; color: #fff; line-height: 1; }
   .kpi .delta { font-size: 11px; margin-top: 5px; }
-  .up { color: var(--green); } .down { color: var(--red); } .neu { color: var(--muted); }
+  .up { color: var(--green); } .down { color: var(--red); }
   .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
   .card-title { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -151,8 +142,7 @@ const DADOS = {
   .bar-val { flex: 0 0 70px; text-align: right; color: #fff; font-weight: 500; }
   table { width: 100%; border-collapse: collapse; font-size: 12px; }
   th { font-size: 10px; font-weight: 600; color: var(--faint); text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); letter-spacing: 0.06em; text-transform: uppercase; }
-  td { padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text); vertical-align: middle; }
-  tr:last-child td { border-bottom: none; }
+  td { padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text); }
   .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: 600; }
   .badge-red    { background: rgba(226,75,74,0.15);   color: #f08080; }
   .badge-yellow { background: rgba(239,159,39,0.15);  color: #f0b060; }
@@ -160,11 +150,9 @@ const DADOS = {
   .badge-blue   { background: rgba(55,138,221,0.15);  color: #85b7eb; }
   .badge-gray   { background: rgba(136,135,128,0.2);  color: #aaa;    }
   .badge-orange { background: rgba(239,100,39,0.2);   color: #f09060; }
-  .stat-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 12px; flex-wrap: wrap; }
-  .stat-row:last-child { border-bottom: none; }
-  .stat-val { font-weight: 600; color: #fff; flex-shrink: 0; }
-  .chart-wrap { position: relative; width: 100%; height: 180px; }
-  .chart-wrap-sm { position: relative; width: 100%; height: 140px; }
+  .stat-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 12px; }
+  .chart-wrap { position: relative; width: 100%; height: 200px; }
+  .chart-wrap-lg { position: relative; width: 100%; height: 280px; }
   footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 11px; color: var(--faint); text-align: center; }
 </style>
 </head>
@@ -173,7 +161,7 @@ const DADOS = {
 <div id="app"></div>
 
 <script>
-const COR = { purple: 'var(--purple)', pink: 'var(--pink)', blue: 'var(--blue)', green: 'var(--green)', amber: 'var(--amber)', gray: '#555' };
+const COR = { purple: 'var(--purple)', pink: 'var(--pink)', blue: 'var(--blue)', green: 'var(--green)', amber: 'var(--amber)' };
 
 function kpi(label, obj) {
   return `<div class="kpi"><div class="label">${label}</div><div class="value">${obj.valor}</div><div class="delta ${obj.tipo}">${obj.delta}</div></div>`;
@@ -188,8 +176,14 @@ const E = D.ecommerce, R = D.rd, H = D.historico;
 
 document.getElementById('app').innerHTML = `
 <div class="page-header">
-  <h1>📊 Dashboard de Marketing Omnichannel</h1>
-  <p>Período: ${D.periodo} &nbsp;·&nbsp; Atualizado em: ${D.updated||D.atualizadoEm}</p>
+  <h1>📊 Dashboard de Marketing Omnichannel — Consolidado 2026</h1>
+  <p>Período Base: ${D.periodo} &nbsp;·&nbsp; Histórico Comparativo Atualizado</p>
+</div>
+
+<div class="section-title">⚖️ Comparativo de Origens de Tráfego Mês a Mês (Google Analytics)</div>
+<div class="card" style="margin-bottom: 16px;">
+  <div class="card-title">Distribuição Mensal por Canal de Entrada (Sessões Absolutas)</div>
+  <div class="chart-wrap-lg"><canvas id="canaisComparativoChart"></canvas></div>
 </div>
 
 <div class="section-title">🛒 E-commerce — Tray &amp; Visão Consolidada (Maio/2026)</div>
@@ -223,10 +217,10 @@ document.getElementById('app').innerHTML = `
   </div>
 </div>
 
-<div class="section-title">📈 Tráfego do Site — Histórico de Sessões (Google Analytics)</div>
+<div class="section-title">📊 Evolução Geral de Tráfego do Site (GA4)</div>
 <div class="two-col">
   <div class="card">
-    <div class="card-title">Evolução Mensal de Sessões (Acessos)</div>
+    <div class="card-title">Evolução Mensal de Sessões Totais</div>
     <div class="chart-wrap"><canvas id="sessoesGaChart"></canvas></div>
   </div>
   <div class="card">
@@ -235,7 +229,7 @@ document.getElementById('app').innerHTML = `
   </div>
 </div>
 
-<div class="section-title">📱 Redes Sociais — Histórico Meta &amp; Instagram (2026)</div>
+<div class="section-title">📱 Redes Sociais — Histórico Instagram (2026)</div>
 <div class="two-col">
   <div class="card">
     <div class="card-title">Evolução de Impressões / Visualizações (mil)</div>
@@ -247,118 +241,108 @@ document.getElementById('app').innerHTML = `
   </div>
 </div>
 
-<div class="section-title">📧 E-mail Marketing — Campanhas Ativas (Maio/2026)</div>
-<div class="card">
-  <div class="card-title">Disparos realizados no mês</div>
-  <table>
-    <thead><tr><th>Campanha</th><th>Data</th><th>Enviados</th><th>Entrega</th><th>Abertura</th><th>Cliques</th><th>Bounces</th></tr></thead>
-    <tbody>
-      ${D.email.campanhasAbril.map(c => `
-        <tr>
-          <td>${c.nome}</td>
-          <td style="color:var(--muted);">${c.data}</td>
-          <td>${c.enviados.toLocaleString('pt-BR')}</td>
-          <td>${c.entrega}</td>
-          <td>${c.abertura}</td>
-          <td>${c.cliques}</td>
-          <td style="color:var(--muted);">${c.bounces.toLocaleString('pt-BR')}</td>
-        </tr>`).join('')}
-    </tbody>
-  </table>
-</div>
-
-<div class="section-title">📡 RD Station — Captação de Novos Leads (Maio/2026)</div>
-<div class="kpi-grid-2">
+<div class="section-title">📧 E-mail Marketing &amp; Captação RD Station (Maio/2026)</div>
+<div class="kpi-grid-2" style="margin-bottom:8px;">
   ${kpi('Leads — Pop-up de Saída (Site)', R.leadsPopup)}
   ${kpi('Leads — Botão WhatsApp Flutuante', R.leadsWhatsapp)}
 </div>
 
-<div class="two-col" style="margin-top:8px;">
+<div class="two-col">
   <div class="card">
-    <div class="card-title">Fontes de Atração dos Novos Leads</div>
+    <div class="card-title">Fontes de Atração dos Novos Leads (RD)</div>
     ${R.fontesLeads.map(b => `<div class="bar-row"><span class="lbl">${b.nome}</span><div class="bar-track"><div class="bar-fill" style="width:${b.pct}%;background:var(--green);"></div></div><span class="bar-val">${b.val} Leads</span></div>`).join('')}
   </div>
   <div class="card">
-    <div class="card-title">Histórico de leads acumulados — 2026</div>
-    <div class="chart-wrap-sm"><canvas id="leadsChart"></canvas></div>
+    <div class="card-title">Disparos de E-mail de Maio</div>
+    <table>
+      <thead><tr><th>Campanha</th><th>Data</th><th>Enviados</th><th>Abertura</th><th>Cliques</th></tr></thead>
+      <tbody>
+        ${D.email.campanhasAbril.map(c => `<tr><td>${c.nome}</td><td>${c.data}</td><td>${c.enviados}</td><td>${c.abertura}</td><td>${c.cliques}</td></tr>`).join('')}
+      </tbody>
+    </table>
   </div>
 </div>
 
 <div class="section-title">🚨 Alertas, Insights e Oportunidades</div>
 <div class="card">
   <table>
-    <thead><tr><th>Situação</th><th>Prioridade</th><th>Ação sugerida</th></tr></thead>
+    <thead><tr><th>Situação Analisada</th><th>Prioridade</th><th>Ação sugerida</th></tr></thead>
     <tbody>
       ${D.alertas.map(a => `<tr><td style="color:var(--muted);">${a.situacao}</td><td><span class="badge badge-${a.badge}">${a.prioridade}</span></td><td>${a.acao}</td></tr>`).join('')}
     </tbody>
   </table>
 </div>
 
-<footer>Dashboard de Marketing · Atualizado em ${D.atualizadoEm}</footer>
+<footer>Dashboard Comercial e de Marketing · Atualizado em ${D.atualizadoEm}</footer>
 `;
 
-const green = '#1D9E75', pink = '#D4537E', purple = '#7F77DD', amber = '#EF9F27', blue = '#378ADD';
+const green = '#1D9E75', pink = '#D4537E', purple = '#7F77DD', amber = '#EF9F27', blue = '#378ADD', gray = '#777777';
 const gridColor = 'rgba(255,255,255,0.06)', tickColor = 'rgba(255,255,255,0.35)';
 const commonScales = {
   x: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 10 } } },
   y: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 10 } } }
 };
 
-// Gráfico de Sessões do Google Analytics
+/* 🚀 GRÁFICO NOVO: Comparativo Multibarras de Canais Mês a Mês */
+new Chart(document.getElementById('canaisComparativoChart'), {
+  type: 'bar',
+  data: {
+    labels: H.labels,
+    datasets: [
+      { label: 'Paid Search (Mídia Paga)', data: H.canaisPorMes.paidSearch, backgroundColor: blue, borderRadius: 3 },
+      { label: 'Direct (Acesso Direto)', data: H.canaisPorMes.direct, backgroundColor: purple, borderRadius: 3 },
+      { label: 'Organic Search (Google SEO)', data: H.canaisPorMes.organicSearch, backgroundColor: green, borderRadius: 3 },
+      { label: 'Social (Redes Sociais)', data: H.canaisPorMes.social, backgroundColor: pink, borderRadius: 3 }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'top', labels: { color: '#fff', font: { size: 11 }, boxWidth: 12 } }
+    },
+    scales: commonScales
+  }
+});
+
+// Sessões Totais GA
 new Chart(document.getElementById('sessoesGaChart'), {
   type: 'bar',
   data: {
     labels: H.labels,
-    datasets: [{ label: 'Sessões', data: H.visitasGa, backgroundColor: [purple+'66', purple+'66', purple+'66', purple+'66', blue], borderColor: [purple, purple, purple, purple, blue], borderWidth: 1, borderRadius: 4 }]
+    datasets: [{ label: 'Sessões', data: H.visitasGa, backgroundColor: purple+'66', borderColor: purple, borderWidth: 1, borderRadius: 4 }]
   },
   options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: commonScales }
 });
 
-// Gráfico de Duração de Sessão (GA)
+// Duração de Sessão
 new Chart(document.getElementById('duracaoGaChart'), {
   type: 'line',
   data: {
     labels: H.labels,
-    datasets: [{ label: 'Duração Média (s)', data: H.duracaoGa, borderColor: amber, backgroundColor: amber+'15', fill: true, tension: 0.3, pointRadius: 4, borderWidth: 2 }]
+    datasets: [{ label: 'Duração Média (s)', data: H.duracaoGa, borderColor: amber, backgroundColor: amber+'15', fill: true, tension: 0.3, pointRadius: 4 }]
   },
   options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: commonScales }
 });
 
-// Gráfico de Visualizações do Instagram
+// Instagram Visualizações
 new Chart(document.getElementById('instaVisuChart'), {
   type: 'bar',
   data: {
     labels: H.labels,
-    datasets: [{ label: 'Visualizações (mil)', data: H.instaVisu, backgroundColor: [pink+'55', pink+'55', pink+'55', pink+'55', pink], borderColor: [pink, pink, pink, pink, pink], borderWidth: 1, borderRadius: 4 }]
+    datasets: [{ label: 'Visualizações (mil)', data: H.instaVisu, backgroundColor: pink, borderRadius: 4 }]
   },
   options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: commonScales }
 });
 
-// Gráfico de Alcance de Contas (Instagram)
+// Instagram Alcance
 new Chart(document.getElementById('instaAlcaChart'), {
   type: 'line',
   data: {
     labels: H.labels,
-    datasets: [{ label: 'Alcance (mil)', data: H.instaAlca, borderColor: green, backgroundColor: green+'15', fill: true, tension: 0.3, pointRadius: 4, borderWidth: 2 }]
+    datasets: [{ label: 'Alcance (mil)', data: H.instaAlca, borderColor: green, backgroundColor: green+'15', fill: true, tension: 0.3, pointRadius: 4 }]
   },
   options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: commonScales }
-});
-
-// Histórico de Leads RD
-new Chart(document.getElementById('leadsChart'), {
-  type: 'line',
-  data: {
-    labels: DADOS.rd.leadsHistorico.labels,
-    datasets: [
-      { label: 'Pop-up', data: DADOS.rd.leadsHistorico.popup, borderColor: pink, backgroundColor: pink+'22', fill: true, tension: 0.4, pointRadius: 4, borderWidth: 2 },
-      { label: 'WhatsApp', data: DADOS.rd.leadsHistorico.whatsapp, borderColor: green, backgroundColor: green+'22', fill: true, tension: 0.4, pointRadius: 4, borderWidth: 2 }
-    ]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { labels: { color: tickColor, font: { size: 11 }, boxWidth: 10 } } },
-    scales: commonScales
-  }
 });
 </script>
 </body>
