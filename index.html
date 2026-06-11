@@ -32,7 +32,7 @@ const DADOS = {
     ],
 
     statusPedidos: [
-      { nome: "Pedidos Confirmados (Tray)",       badge: "green",  texto: "2 pedidos" },
+      { nome: "Pedidos Confirmados",             badge: "green",  texto: "2 pedidos" },
       { nome: "Faturamento Global Conciliado",   badge: "blue",   texto: "R$ 51.520,00" },
       { nome: "Faturamento Bruto de Peças",      badge: "orange", texto: "R$ 5.138,50" },
       { nome: "Lista de Pedidos Ativos",         badge: "gray",   texto: "4 Ativos" },
@@ -52,6 +52,12 @@ const DADOS = {
       { nome: "masculino camiseta empatia manga longa ecotton b2b",      pct: 87,  val: "7,07%" },
       { nome: "80209 (Código de busca interna)",                         pct: 75,  val: "6,06%" },
     ],
+
+    /* Gráfico visitas diárias / mensais */
+    visitasGrafico: {
+      labels: ['Jan/26','Fev/26','Mar/26','Abr/26','Mai/26'],
+      dados:  [2104, 3037, 3383, 2773, 4254],
+    },
   },
 
   /* 📧 E-mail Marketing */
@@ -64,6 +70,7 @@ const DADOS = {
     historico: [
       { nome: "BiiO & Tech (Bloqueada)",  data: "27/04", enviados: 2915, entrega: "55,16%", abertura: "20,09%", cliques: "1,99%", bounces: 1307 },
       { nome: "Alfaiataria Premium",      data: "29/04", enviados: 6884, entrega: "77,03%", abertura: "13,69%", cliques: "0,94%", bounces: 1581 },
+      { nome: "Queridinhos do Mês",       data: "10/03", enviados: 660,  entrega: "95,61%", abertura: "19,02%", cliques: "1,58%", bounces: 29   },
     ],
   },
 
@@ -86,22 +93,20 @@ const DADOS = {
     ]
   },
 
-  /* 📊 Performance histórica — Google Analytics & Instagram */
+  /* 📊 Performance histórica — E-commerce */
   historico: {
     labels:   ['Jan/26','Fev/26','Mar/26','Abr/26','Mai/26'],
-    visitasGa: [2104, 3037, 4582, 1538, 4772], // Dados exatos das sessões extraídos dos relatórios
-    duracaoGa: [120, 145, 182, 103, 103],       // Tempo de sessão (segundos)
-    instaVisu: [143.8, 43.2, 58.9, 39.8, 57.1], // Histórico completo em milhares (mil)
-    instaAlca: [40.4, 16.8, 20.8, 12.3, 25.5],  // Alcance de contas em milhares (mil)
+    receitas: [1230.50, 4150.20, 2761.56, 5423.80, 760.40],
+    visitas:  [2104, 3037, 3383, 2773, 4254],
   },
 
   /* 🚨 Alertas */
   alertas: [
     { situacao: "Faturamento Omnichannel atingiu recorde de R$ 51.520,00",          prioridade: "Sucesso",     badge: "green",  acao: "Manter a estratégia de canais integrados de venda" },
     { situacao: "Captação disparou: 22 leads por Pop-up e 15 por WhatsApp",        prioridade: "Excelente",   badge: "green",  acao: "Otimizar fluxos de nutrição de e-mail para esses leads" },
-    { situacao: "Visitas no Instagram subiram +93,3% (632) e interações +60,3% (383)", prioridade: "Positivo",    badge: "green",  acao: "Impulsionar formatos de Reels (lidera engajamento com 110)" },
-    { situacao: "Novos contatos por mensagem caíram para 4 (↓ -42,9%)",             prioridade: "Atenção",     badge: "yellow", acao: "Revisar CTAs de direct e automações de boas-vindas" },
     { situacao: "Receita direta na loja virtual caiu para R$ 760,40 (-85%)",       prioridade: "Crítico",     badge: "red",    acao: "Revisar fricção no checkout e ofertas exclusivas do site" },
+    { situacao: "Taxa de conversão do e-commerce caiu para 0,07%",                  prioridade: "Atenção",     badge: "yellow", acao: "Ativar campanhas de remarketing para os 4.254 visitantes" },
+    { situacao: "E-mails marketing normalizados: entregabilidade voltou para 99%", prioridade: "Corrigido",    badge: "blue",   acao: "Manter as boas práticas de higienização da base ativa" },
     { situacao: "Criativo de Anúncio 'Scrub Masculino' obteve CTR de 2,37%",       prioridade: "Oportunidade", badge: "blue",   acao: "Escalar orçamento diário controlado (R$ 55,00/dia)" },
   ],
 
@@ -189,15 +194,15 @@ const E = D.ecommerce, R = D.rd, H = D.historico;
 document.getElementById('app').innerHTML = `
 <div class="page-header">
   <h1>📊 Dashboard de Marketing Omnichannel</h1>
-  <p>Período: ${D.periodo} &nbsp;·&nbsp; Atualizado em: ${D.updated||D.atualizadoEm}</p>
+  <p>Período: ${D.periodo} &nbsp;·&nbsp; Atualizado em: ${D.atualizadoEm}</p>
 </div>
 
-<div class="section-title">🛒 E-commerce — Tray &amp; Visão Consolidada (Maio/2026)</div>
+<div class="section-title">🛒 E-commerce — Tray &amp; Canais Diretos (Maio/2026)</div>
 <div class="kpi-grid">
   ${kpi('Receita e-com', E.receita)}
   ${kpi('Pedidos e-com', E.vendas)}
-  ${kpi('Visitas e-com', E.visitas)}
-  ${kpi('Conversão e-com', E.conversao)}
+  ${kpi('Visitas à loja', E.visitas)}
+  ${kpi('Conversão loja', E.conversao)}
 </div>
 
 <div class="two-col" style="margin-top:8px;">
@@ -206,7 +211,7 @@ document.getElementById('app').innerHTML = `
     ${E.maisVendidos.map(barRow).join('')}
   </div>
   <div class="card">
-    <div class="card-title">Status e Faturamento Físico Conciliado</div>
+    <div class="card-title">Status e Visão Global de Pedidos</div>
     ${E.statusPedidos.map(p => `<div class="stat-row"><span>${p.nome}</span><span class="stat-val"><span class="badge badge-${p.badge}">${p.texto}</span></span></div>`).join('')}
     <div style="margin-top:12px;font-size:11px;color:var(--faint);">${E.statusRodape}</div>
   </div>
@@ -214,7 +219,7 @@ document.getElementById('app').innerHTML = `
 
 <div class="two-col" style="margin-top:8px;">
   <div class="card">
-    <div class="card-title">Páginas de Produtos Mais Vistas (GA)</div>
+    <div class="card-title">Páginas de Produtos Mais Vistas</div>
     ${E.maisVistos.map(barRow).join('')}
   </div>
   <div class="card">
@@ -223,27 +228,14 @@ document.getElementById('app').innerHTML = `
   </div>
 </div>
 
-<div class="section-title">📈 Tráfego do Site — Histórico de Sessões (Google Analytics)</div>
-<div class="two-col">
+<div class="two-col" style="margin-top:8px;">
   <div class="card">
-    <div class="card-title">Evolução Mensal de Sessões (Acessos)</div>
-    <div class="chart-wrap"><canvas id="sessoesGaChart"></canvas></div>
+    <div class="card-title">Receita histórica mensal (R$) — 2026</div>
+    <div class="chart-wrap"><canvas id="receitaChart"></canvas></div>
   </div>
   <div class="card">
-    <div class="card-title">Duração Média das Sessões (Segundos)</div>
-    <div class="chart-wrap"><canvas id="duracaoGaChart"></canvas></div>
-  </div>
-</div>
-
-<div class="section-title">📱 Redes Sociais — Histórico Meta &amp; Instagram (2026)</div>
-<div class="two-col">
-  <div class="card">
-    <div class="card-title">Evolução de Impressões / Visualizações (mil)</div>
-    <div class="chart-wrap"><canvas id="instaVisuChart"></canvas></div>
-  </div>
-  <div class="card">
-    <div class="card-title">Alcance de Contas Únicas (mil)</div>
-    <div class="chart-wrap"><canvas id="instaAlcaChart"></canvas></div>
+    <div class="card-title">Visitas históricas mensais — 2026</div>
+    <div class="chart-wrap"><canvas id="visitasChart"></canvas></div>
   </div>
 </div>
 
@@ -255,13 +247,32 @@ document.getElementById('app').innerHTML = `
     <tbody>
       ${D.email.campanhasAbril.map(c => `
         <tr>
-          <td>${c.nome}</td>
+          <td>${c.nome} ${c.status === 'bloqueada' ? '<span class="badge badge-red">Bloqueada</span>' : ''}</td>
           <td style="color:var(--muted);">${c.data}</td>
           <td>${c.enviados.toLocaleString('pt-BR')}</td>
           <td>${c.entrega}</td>
           <td>${c.abertura}</td>
           <td>${c.cliques}</td>
           <td style="color:var(--muted);">${c.bounces.toLocaleString('pt-BR')}</td>
+        </tr>`).join('')}
+    </tbody>
+  </table>
+</div>
+
+<div class="card" style="margin-top:8px;">
+  <div class="card-title">Histórico de Campanhas Anteriores</div>
+  <table>
+    <thead><tr><th>Campanha</th><th>Data</th><th>Enviados</th><th>Entrega</th><th>Abertura</th><th>Cliques</th><th>Bounces</th></tr></thead>
+    <tbody>
+      ${D.email.historico.map(c => `
+        <tr>
+          <td>${c.nome}</td>
+          <td style="color:var(--muted);">${c.data}</td>
+          <td>${c.enviados.toLocaleString('pt-BR')}</td>
+          <td>${c.entrega}</td>
+          <td>${c.abertura}</td>
+          <td>${c.cliques}</td>
+          <td style="color:var(--red);">${c.bounces.toLocaleString('pt-BR')}</td>
         </tr>`).join('')}
     </tbody>
   </table>
@@ -294,57 +305,34 @@ document.getElementById('app').innerHTML = `
   </table>
 </div>
 
-<footer>Dashboard de Marketing · Atualizado em ${D.atualizadoEm}</footer>
+<footer>Dashboard de Marketing · Atualizado em ${D.atualizadoEm} · Para modificar dados permanentes, altere o bloco DADOS no arquivo HTML</footer>
 `;
 
-const green = '#1D9E75', pink = '#D4537E', purple = '#7F77DD', amber = '#EF9F27', blue = '#378ADD';
+const green = '#1D9E75', pink = '#D4537E', purple = '#7F77DD', amber = '#EF9F27';
 const gridColor = 'rgba(255,255,255,0.06)', tickColor = 'rgba(255,255,255,0.35)';
 const commonScales = {
   x: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 10 } } },
   y: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 10 } } }
 };
 
-// Gráfico de Sessões do Google Analytics
-new Chart(document.getElementById('sessoesGaChart'), {
+new Chart(document.getElementById('receitaChart'), {
   type: 'bar',
   data: {
     labels: H.labels,
-    datasets: [{ label: 'Sessões', data: H.visitasGa, backgroundColor: [purple+'66', purple+'66', purple+'66', purple+'66', blue], borderColor: [purple, purple, purple, purple, blue], borderWidth: 1, borderRadius: 4 }]
+    datasets: [{ label: 'Receita (R$)', data: H.receitas, backgroundColor: [purple+'88', purple+'88', purple+'88', purple+'88', green+'cc'], borderColor: [purple, purple, purple, purple, green], borderWidth: 1, borderRadius: 4 }]
   },
   options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: commonScales }
 });
 
-// Gráfico de Duração de Sessão (GA)
-new Chart(document.getElementById('duracaoGaChart'), {
-  type: 'line',
-  data: {
-    labels: H.labels,
-    datasets: [{ label: 'Duração Média (s)', data: H.duracaoGa, borderColor: amber, backgroundColor: amber+'15', fill: true, tension: 0.3, pointRadius: 4, borderWidth: 2 }]
-  },
-  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: commonScales }
-});
-
-// Gráfico de Visualizações do Instagram
-new Chart(document.getElementById('instaVisuChart'), {
+new Chart(document.getElementById('visitasChart'), {
   type: 'bar',
   data: {
     labels: H.labels,
-    datasets: [{ label: 'Visualizações (mil)', data: H.instaVisu, backgroundColor: [pink+'55', pink+'55', pink+'55', pink+'55', pink], borderColor: [pink, pink, pink, pink, pink], borderWidth: 1, borderRadius: 4 }]
+    datasets: [{ label: 'Visitas', data: H.visitas, backgroundColor: [pink+'55', pink+'55', pink+'55', pink+'55', amber+'99'], borderColor: [pink, pink, pink, pink, amber], borderWidth: 1, borderRadius: 4 }]
   },
   options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: commonScales }
 });
 
-// Gráfico de Alcance de Contas (Instagram)
-new Chart(document.getElementById('instaAlcaChart'), {
-  type: 'line',
-  data: {
-    labels: H.labels,
-    datasets: [{ label: 'Alcance (mil)', data: H.instaAlca, borderColor: green, backgroundColor: green+'15', fill: true, tension: 0.3, pointRadius: 4, borderWidth: 2 }]
-  },
-  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: commonScales }
-});
-
-// Histórico de Leads RD
 new Chart(document.getElementById('leadsChart'), {
   type: 'line',
   data: {
