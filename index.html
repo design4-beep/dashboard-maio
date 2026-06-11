@@ -1,464 +1,365 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Unificado - Maio 2026</title>
-    <style>
-        /* DESIGN DARK COMPATÍVEL COM NOTION - CSS 100% NATIVO */
-        body {
-            background-color: #191919;
-            color: #FFFFFFDE;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        /* CABEÇALHO */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #2a2a2a;
-            padding-bottom: 16px;
-            margin-bottom: 24px;
-        }
-        .header-title h1 {
-            margin: 0;
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-        .header-title p {
-            margin: 4px 0 0 0;
-            font-size: 12px;
-            color: #888;
-        }
-        .badge {
-            background-color: #242424;
-            color: #3b82f6;
-            font-size: 11px;
-            font-family: monospace;
-            padding: 4px 10px;
-            border-radius: 4px;
-            border: 1px solid #2e2e2e;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard de Marketing — Maio 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 
-        /* SEÇÕES E GRIDS */
-        .section-title {
-            font-size: 13px;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin: 28px 0 12px 0;
-            border-left: 3px solid #3b82f6;
-            padding-left: 8px;
-        }
-        .grid-4 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 16px;
-        }
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 16px;
-        }
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 16px;
-        }
+<script>
+/* ============================================================
+   ✏️  EDITE AQUI — Todos os dados do dashboard estão abaixo
+   Após editar, salve o arquivo e faça commit no GitHub
+   ============================================================ */
 
-        /* CARDS */
-        .card {
-            background-color: #202020;
-            border: 1px solid #2a2a2a;
-            border-radius: 8px;
-            padding: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-        }
-        .card-title {
-            font-size: 11px;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin: 0 0 8px 0;
-        }
-        .card-value {
-            font-size: 24px;
-            font-weight: 700;
-            margin: 0;
-            font-family: monospace;
-        }
-        .card-sub {
-            font-size: 11px;
-            margin: 6px 0 0 0;
-            color: #64748b;
-        }
-        
-        .text-green { color: #10b981; font-weight: 500; }
-        .text-red { color: #ef4444; font-weight: 500; }
-        .text-blue { color: #3b82f6; }
-        .text-purple { color: #a855f7; }
-        .text-amber { color: #f59e0b; }
+const DADOS = {
 
-        /* LISTAS DE ÍTENS */
-        .row-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 12px;
-            background-color: #191919;
-            border: 1px solid #2a2a2a;
-            border-radius: 6px;
-            font-size: 12px;
-            margin-bottom: 8px;
-        }
-        .row-item span { color: #cccccc; }
-        .row-item strong { font-family: monospace; }
+  /* Cabeçalho */
+  periodo: "Maio/2026 (mês completo)",
+  atualizadoEm: "31/05/2026",
 
-        /* ETAPAS DO FUNIL RD STATION */
-        .funnel-container {
-            display: flex;
-            gap: 8px;
-            margin-top: 12px;
-        }
-        .funnel-stage {
-            flex: 1;
-            background-color: #191919;
-            border: 1px solid #2a2a2a;
-            border-radius: 6px;
-            padding: 12px 8px;
-            text-align: center;
-        }
-        .funnel-stage span {
-            font-size: 10px;
-            color: #888;
-            display: block;
-            margin-bottom: 4px;
-            text-transform: uppercase;
-        }
-        .funnel-stage p {
-            font-size: 18px;
-            font-weight: bold;
-            margin: 0;
-            font-family: monospace;
-        }
+  /* 🛒 E-commerce — Tray */
+  ecommerce: {
+    receita:           { valor: "R$ 760,40",   delta: "↓ -85,98% vs abril/26",  tipo: "down" },
+    vendas:            { valor: "2",           delta: "↓ -33,33% vs abril/26",  tipo: "down" },
+    visitas:           { valor: "4.254",       delta: "↑ +53,41% vs abril/26",  tipo: "up"   },
+    conversao:         { valor: "0,07%",       delta: "↓ -36,36% vs abril/26",  tipo: "down" },
 
-        /* BARRAS DE PROGRESSO */
-        .progress-container { margin-bottom: 12px; }
-        .progress-bar-bg {
-            background-color: #2a2a2a;
-            height: 6px;
-            border-radius: 3px;
-            width: 100%;
-            margin-top: 5px;
-            overflow: hidden;
-        }
-        .progress-bar-fill { height: 100%; border-radius: 3px; }
+    maisVendidos: [
+      { nome: "Jaleco Masculino Prime Clássico",  pct: 100, val: "1 · R$ 377,50", cor: "blue"   },
+      { nome: "Jaleco Feminino Prime Clássico",   pct: 91,  val: "1 · R$ 344,50", cor: "pink"   },
+      { nome: "Outras Peças Corporativas (B2B)",  pct: 50,  val: "Vendas Diretas", cor: "purple" },
+    ],
 
-        /* TABELAS */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-            text-align: left;
-            margin-top: 10px;
-        }
-        th {
-            background-color: #191919;
-            color: #888;
-            text-transform: uppercase;
-            font-size: 10px;
-            padding: 12px 10px;
-            border-bottom: 1px solid #2a2a2a;
-            letter-spacing: 0.5px;
-        }
-        td {
-            padding: 12px 10px;
-            border-bottom: 1px solid #2a2a2a;
-        }
-        tr:hover { background-color: #242424; }
+    statusPedidos: [
+      { nome: "Pedidos Confirmados (Tray)",       badge: "green",  texto: "2 pedidos" },
+      { nome: "Faturamento Global Conciliado",   badge: "blue",   texto: "R$ 51.520,00" },
+      { nome: "Faturamento Bruto de Peças",      badge: "orange", texto: "R$ 5.138,50" },
+      { nome: "Lista de Pedidos Ativos",         badge: "gray",   texto: "4 Ativos" },
+    ],
+    statusRodape: "Ticket Médio Omnichannel: R$ 1.215,34 · 67 Pedidos Totais no Mês",
 
-        /* GRÁFICO DIÁRIO DE TRÁFEGO HÁPTICO */
-        .chart-native {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            height: 140px;
-            padding: 10px 0;
-            margin-top: 15px;
-            border-bottom: 1px solid #2a2a2a;
-        }
-        .chart-bar-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex: 1;
-        }
-        .chart-bar {
-            width: 14px;
-            background-color: #3b82f6;
-            border-radius: 2px 2px 0 0;
-        }
-        .chart-bar.peak { background-color: #60a5fa; }
-        .chart-label { font-size: 9px; color: #666; margin-top: 6px; }
-    </style>
+    maisVistos: [
+      { nome: "Camisa Scrub Feminina Harmonia",    pct: 100, val: "198", cor: "pink"   },
+      { nome: "Camisa Scrub Masculino Bem-Estar",  pct: 69,  val: "137", cor: "blue"   },
+      { nome: "Camisa Scrub Feminino Bem-Estar",   pct: 63,  val: "125", cor: "pink"   },
+      { nome: "Calça Scrub Feminina Conforto Flex", pct: 56,  val: "112", cor: "green"  },
+    ],
+
+    buscas: [
+      { nome: "masculino camisa essencial button down manga longa b2b", pct: 100, val: "8,08%" },
+      { nome: "8008 (Código de busca interna)",                          pct: 87,  val: "7,07%" },
+      { nome: "masculino camiseta empatia manga longa ecotton b2b",      pct: 87,  val: "7,07%" },
+      { nome: "80209 (Código de busca interna)",                         pct: 75,  val: "6,06%" },
+    ],
+  },
+
+  /* 📧 E-mail Marketing */
+  email: {
+    campanhasAbril: [
+      { nome: "Inverno Coleção BiiO",     data: "29/05", enviados: 5104, entrega: "99,00%", abertura: "12,27%", cliques: "0,18%", bounces: 17,  status: "ok" },
+      { nome: "Adeus, jalecos sem graça", data: "22/05", enviados: 5177, entrega: "99,00%", abertura: "13,29%", cliques: "0,55%", bounces: 44,  status: "ok" },
+      { nome: "BiiO Corporate",           data: "14/05", enviados: 5255, entrega: "99,00%", abertura: "12,40%", cliques: "0,65%", bounces: 39,  status: "ok" },
+    ],
+    historico: [
+      { nome: "BiiO & Tech (Bloqueada)",  data: "27/04", enviados: 2915, entrega: "55,16%", abertura: "20,09%", cliques: "1,99%", bounces: 1307 },
+      { nome: "Alfaiataria Premium",      data: "29/04", enviados: 6884, entrega: "77,03%", abertura: "13,69%", cliques: "0,94%", bounces: 1581 },
+    ],
+  },
+
+  /* 📡 RD Station — Leads */
+  rd: {
+    leadsPopup:      { valor: "22",  delta: "↑ +2100% vs abril/26", tipo: "up" },
+    leadsWhatsapp:   { valor: "15",  delta: "↑ +36,36% vs abril/26", tipo: "up" },
+
+    leadsHistorico: {
+      labels: ['Jan','Fev','Mar','Abr','Mai'],
+      popup:      [4, 2, 12, 1, 22],
+      whatsapp:   [9, 6, 5, 11, 15],
+    },
+    
+    fontesLeads: [
+      { nome: "Tráfego Direto (Acesso Direto)",           pct: 100, val: "14" },
+      { nome: "Mídia Paga (Meta Ads / Instagram Ads)",    pct: 28,  val: "4"  },
+      { nome: "Redes Sociais (Instagram Orgânico)",       pct: 21,  val: "3"  },
+      { nome: "Busca Orgânica (Google SEO)",              pct: 14,  val: "2"  },
+    ]
+  },
+
+  /* 📊 Performance histórica — Google Analytics & Instagram */
+  historico: {
+    labels:   ['Jan/26','Fev/26','Mar/26','Abr/26','Mai/26'],
+    visitasGa: [2104, 3037, 4582, 1538, 4772], // Dados exatos das sessões extraídos dos relatórios
+    duracaoGa: [120, 145, 182, 103, 103],       // Tempo de sessão (segundos)
+    instaVisu: [143.8, 43.2, 58.9, 39.8, 57.1], // Histórico completo em milhares (mil)
+    instaAlca: [40.4, 16.8, 20.8, 12.3, 25.5],  // Alcance de contas em milhares (mil)
+  },
+
+  /* 🚨 Alertas */
+  alertas: [
+    { situacao: "Faturamento Omnichannel atingiu recorde de R$ 51.520,00",          prioridade: "Sucesso",     badge: "green",  acao: "Manter a estratégia de canais integrados de venda" },
+    { situacao: "Captação disparou: 22 leads por Pop-up e 15 por WhatsApp",        prioridade: "Excelente",   badge: "green",  acao: "Otimizar fluxos de nutrição de e-mail para esses leads" },
+    { situacao: "Visitas no Instagram subiram +93,3% (632) e interações +60,3% (383)", prioridade: "Positivo",    badge: "green",  acao: "Impulsionar formatos de Reels (lidera engajamento com 110)" },
+    { situacao: "Novos contatos por mensagem caíram para 4 (↓ -42,9%)",             prioridade: "Atenção",     badge: "yellow", acao: "Revisar CTAs de direct e automações de boas-vindas" },
+    { situacao: "Receita direta na loja virtual caiu para R$ 760,40 (-85%)",       prioridade: "Crítico",     badge: "red",    acao: "Revisar fricção no checkout e ofertas exclusivas do site" },
+    { situacao: "Criativo de Anúncio 'Scrub Masculino' obteve CTR de 2,37%",       prioridade: "Oportunidade", badge: "blue",   acao: "Escalar orçamento diário controlado (R$ 55,00/dia)" },
+  ],
+
+};
+/* ============================================================
+   FIM DOS DADOS — não edite abaixo desta linha
+   ============================================================ */
+</script>
+
+<style>
+  :root {
+    --bg: #191919; --bg2: #222222; --bg3: #2a2a2a;
+    --border: rgba(255,255,255,0.08); --text: #e8e8e6;
+    --muted: #888; --faint: #555;
+    --green: #1D9E75; --pink: #D4537E; --purple: #7F77DD;
+    --blue: #378ADD; --amber: #EF9F27; --red: #E24B4A;
+    --gray: #888;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', -apple-system, system-ui, sans-serif; font-size: 13px; line-height: 1.5; padding: 24px; max-width: 1100px; margin: 0 auto; overflow-y: auto; }
+  .page-header { margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .page-header h1 { font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+  .page-header p { color: var(--muted); font-size: 12px; }
+  .section-title { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin: 28px 0 12px; display: flex; align-items: center; gap: 8px; }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .kpi-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  @media(max-width:700px) {
+    .kpi-grid, .kpi-grid-2 { grid-template-columns: repeat(2,1fr); }
+    .two-col, .three-col { grid-template-columns: 1fr; }
+    .bar-row .lbl { flex: 0 0 110px; }
+    body { padding: 16px; }
+  }
+  .kpi { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .kpi .label { font-size: 11px; color: var(--muted); margin-bottom: 5px; }
+  .kpi .value { font-size: 24px; font-weight: 600; color: #fff; line-height: 1; }
+  .kpi .delta { font-size: 11px; margin-top: 5px; }
+  .up { color: var(--green); } .down { color: var(--red); } .neu { color: var(--muted); }
+  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+  .card-title { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 12px; color: var(--muted); }
+  .bar-row .lbl { flex: 0 0 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-track { flex: 1; height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 2px; }
+  .bar-val { flex: 0 0 70px; text-align: right; color: #fff; font-weight: 500; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { font-size: 10px; font-weight: 600; color: var(--faint); text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); letter-spacing: 0.06em; text-transform: uppercase; }
+  td { padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: 600; }
+  .badge-red    { background: rgba(226,75,74,0.15);   color: #f08080; }
+  .badge-yellow { background: rgba(239,159,39,0.15);  color: #f0b060; }
+  .badge-green  { background: rgba(29,158,117,0.15);  color: #5dcaa5; }
+  .badge-blue   { background: rgba(55,138,221,0.15);  color: #85b7eb; }
+  .badge-gray   { background: rgba(136,135,128,0.2);  color: #aaa;    }
+  .badge-orange { background: rgba(239,100,39,0.2);   color: #f09060; }
+  .stat-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 12px; flex-wrap: wrap; }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-val { font-weight: 600; color: #fff; flex-shrink: 0; }
+  .chart-wrap { position: relative; width: 100%; height: 180px; }
+  .chart-wrap-sm { position: relative; width: 100%; height: 140px; }
+  footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 11px; color: var(--faint); text-align: center; }
+</style>
 </head>
 <body>
 
-    <div class="container">
-        
-        <div class="header">
-            <div class="header-title">
-                <h1>Painel de Performance Omnichannel</h1>
-                <p>Relatório Consolidado Integrado — Maio 2026</p>
-            </div>
-            <span class="badge">DADOS REAIS VALIDADOS</span>
-        </div>
+<div id="app"></div>
 
-        <div class="section-title">Resultados de Faturamento Comercial</div>
-        <div class="grid-4">
-            <div class="card">
-                <p class="card-title">Faturamento Total Gerado</p>
-                <p class="card-value text-green">R$ 51.520,00</p>
-                <p class="card-sub">Total de Pedidos Gerados: <strong class="text-white">67</strong></p>
-            </div>
-            <div class="card">
-                <p class="card-title">Faturamento Loja Virtual</p>
-                <p class="card-value text-amber">R$ 760,40</p>
-                <p class="card-sub text-red">↓ -85,98% (Mês Ant: R$ 5.423,80)</p>
-            </div>
-            <div class="card">
-                <p class="card-title">Ticket Médio Omnichannel</p>
-                <p class="card-value text-blue">R$ 1.215,34</p>
-                <p class="card-sub">Valor médio por cliente ativo</p>
-            </div>
-            <div class="card">
-                <p class="card-title">Conversão E-commerce</p>
-                <p class="card-value">0,07%</p>
-                <p class="card-sub text-red">↓ -58,82% (Mês Ant: 0,17%)</p>
-            </div>
-        </div>
+<script>
+const COR = { purple: 'var(--purple)', pink: 'var(--pink)', blue: 'var(--blue)', green: 'var(--green)', amber: 'var(--amber)', gray: '#555' };
 
-        <div class="section-title">Funil de Atração &amp; Geração de Leads (RD Station)</div>
-        <div class="card" style="margin-bottom: 16px;">
-            <p class="card-title">Métricas Gerais do Funil de Vendas</p>
-            <div class="funnel-container">
-                <div class="funnel-stage">
-                    <span>Visitantes</span>
-                    <p class="text-white">3.537</p>
-                    <small class="text-green">↑ +23,93% (+683)</small>
-                </div>
-                <div class="funnel-stage">
-                    <span>Leads Gerados</span>
-                    <p class="text-blue">23</p>
-                    <small class="text-red">↓ -99,95%</small>
-                </div>
-                <div class="funnel-stage">
-                    <span>Leads Qualificados</span>
-                    <p style="color: #444;">-</p>
-                    <small style="color: #555;">0,00%</small>
-                </div>
-                <div class="funnel-stage">
-                    <span>Oportunidades</span>
-                    <p class="text-amber">3</p>
-                    <small class="text-red">↓ -85,00%</small>
-                </div>
-                <div class="funnel-stage">
-                    <span>Vendas Finais</span>
-                    <p class="text-green">3</p>
-                    <small class="text-red">↓ -78,57%</small>
-                </div>
-            </div>
-        </div>
+function kpi(label, obj) {
+  return `<div class="kpi"><div class="label">${label}</div><div class="value">${obj.valor}</div><div class="delta ${obj.tipo}">${obj.delta}</div></div>`;
+}
+function barRow(item) {
+  const cor = COR[item.cor] || 'var(--purple)';
+  return `<div class="bar-row"><span class="lbl">${item.nome}</span><div class="bar-track"><div class="bar-fill" style="width:${item.pct}%;background:${cor};"></div></div><span class="bar-val">${item.val}</span></div>`;
+}
 
-        <div class="grid-2">
-            <div class="card">
-                <p class="card-title">Fontes de Entrada de Novos Leads</p>
-                <div style="margin-top: 10px;">
-                    <div class="row-item"><span>Tráfego Direto (Acesso Direto)</span><strong class="text-blue">14 Leads</strong></div>
-                    <div class="row-item"><span>Mídia Paga (Meta Ads / Google)</span><strong class="text-amber">4 Leads</strong></div>
-                    <div class="row-item"><span>Redes Sociais (Instagram Orgânico)</span><strong class="text-purple">3 Leads</strong></div>
-                    <div class="row-item"><span>Busca Orgânica (Google SEO)</span><strong>2 Leads</strong></div>
-                </div>
-            </div>
+const D = DADOS;
+const E = D.ecommerce, R = D.rd, H = D.historico;
 
-            <div class="card">
-                <p class="card-title">Conversões por Ponto de Captura</p>
-                <div style="margin-top: 10px;">
-                    <div class="row-item"><span>Pop-up de Saída / Rolagem (Site)</span><strong class="text-green">22 conversões</strong></div>
-                    <div class="row-item"><span>Botão Flutuante do WhatsApp</span><strong class="text-green">15 conversões</strong></div>
-                    <div class="row-item"><span>Formulário de Contato Direto</span><strong class="text-red">4 conversões (↓ -42,9%)</strong></div>
-                    <div class="row-item"><span>Landing Pages / Páginas de Captura</span><strong>0 conversões</strong></div>
-                </div>
-            </div>
-        </div>
+document.getElementById('app').innerHTML = `
+<div class="page-header">
+  <h1>📊 Dashboard de Marketing Omnichannel</h1>
+  <p>Período: ${D.periodo} &nbsp;·&nbsp; Atualizado em: ${D.updated||D.atualizadoEm}</p>
+</div>
 
-        <div class="section-title">Performance de E-mail Marketing (Disparos e Engajamento)</div>
-        <div class="card">
-            <div style="overflow-x: auto;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nome da Campanha Enviada</th>
-                            <th>Data/Hora Envio</th>
-                            <th>Leads Entregues</th>
-                            <th>Taxa Abertura</th>
-                            <th>Taxa Cliques</th>
-                            <th>Descadastros</th>
-                            <th>Spam (Reporte)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-blue" style="font-weight:600;">Inverno Coleção BiiO</td>
-                            <td>29/05/2026 17:04</td>
-                            <td>5.104</td>
-                            <td style="font-family:monospace;">12,27%</td>
-                            <td class="text-green" style="font-family:monospace;">0,18%</td>
-                            <td class="text-red" style="font-family:monospace;">0,33%</td>
-                            <td style="font-family:monospace;">0,12%</td>
-                        </tr>
-                        <tr>
-                            <td class="text-blue" style="font-weight:600;">Adeus, jalecos sem graça</td>
-                            <td>22/05/2026 09:00</td>
-                            <td>5.177</td>
-                            <td style="font-family:monospace;">13,29%</td>
-                            <td class="text-green" style="font-family:monospace;">0,55%</td>
-                            <td class="text-red" style="font-family:monospace;">0,85%</td>
-                            <td style="font-family:monospace;">0,16%</td>
-                        </tr>
-                        <tr>
-                            <td class="text-blue" style="font-weight:600;">BiiO Corporate</td>
-                            <td>14/05/2026 08:00</td>
-                            <td>5.255</td>
-                            <td style="font-family:monospace;">12,40%</td>
-                            <td class="text-green" style="font-family:monospace;">0,65%</td>
-                            <td class="text-red" style="font-family:monospace;">0,74%</td>
-                            <td style="font-family:monospace;">0,10%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<div class="section-title">🛒 E-commerce — Tray &amp; Visão Consolidada (Maio/2026)</div>
+<div class="kpi-grid">
+  ${kpi('Receita e-com', E.receita)}
+  ${kpi('Pedidos e-com', E.vendas)}
+  ${kpi('Visitas e-com', E.visitas)}
+  ${kpi('Conversão e-com', E.conversao)}
+</div>
 
-        <div class="section-title">Métricas de Acessos &amp; Tráfego (Google Analytics)</div>
-        <div class="grid-3">
-            <div class="card">
-                <p class="card-title">Sessões Diárias Totais (4.772 Acessos)</p>
-                <div class="chart-native">
-                    <div class="chart-bar-wrapper"><div class="chart-bar" style="height: 15px;"></div><span class="chart-label">11/05</span></div>
-                    <div class="chart-bar-wrapper"><div class="chart-bar peak" style="height: 135px;"></div><span class="chart-label">14/05</span></div>
-                    <div class="chart-bar-wrapper"><div class="chart-bar" style="height: 35px;"></div><span class="chart-label">17/05</span></div>
-                    <div class="chart-bar-wrapper"><div class="chart-bar" style="height: 45px;"></div><span class="chart-label">20/05</span></div>
-                    <div class="chart-bar-wrapper"><div class="chart-bar peak" style="height: 90px;"></div><span class="chart-label">23/05</span></div>
-                    <div class="chart-bar-wrapper"><div class="chart-bar" style="height: 40px;"></div><span class="chart-label">26/05</span></div>
-                    <div class="chart-bar-wrapper"><div class="chart-bar peak" style="height: 110px;"></div><span class="chart-label">29/05</span></div>
-                    <div class="chart-bar-wrapper"><div class="chart-bar" style="height: 50px;"></div><span class="chart-label">01/06</span></div>
-                </div>
-            </div>
+<div class="two-col" style="margin-top:8px;">
+  <div class="card">
+    <div class="card-title">Produtos mais vendidos (Faturamento Bruto)</div>
+    ${E.maisVendidos.map(barRow).join('')}
+  </div>
+  <div class="card">
+    <div class="card-title">Status e Faturamento Físico Conciliado</div>
+    ${E.statusPedidos.map(p => `<div class="stat-row"><span>${p.nome}</span><span class="stat-val"><span class="badge badge-${p.badge}">${p.texto}</span></span></div>`).join('')}
+    <div style="margin-top:12px;font-size:11px;color:var(--faint);">${E.statusRodape}</div>
+  </div>
+</div>
 
-            <div class="card">
-                <p class="card-title">Participação por Dispositivo</p>
-                <div style="margin-top: 15px;">
-                    <div class="row-item"><span>Mobile (Celulares)</span><strong class="text-blue">72,72% (3.470)</strong></div>
-                    <div class="row-item"><span>Desktop (Computadores)</span><strong class="text-purple">26,84% (1.281)</strong></div>
-                    <div class="row-item"><span>Tablet</span><strong>0,44% (21)</strong></div>
-                    <p class="card-sub">• Duração Média Geral da Sessão: 103 segundos.</p>
-                </div>
-            </div>
+<div class="two-col" style="margin-top:8px;">
+  <div class="card">
+    <div class="card-title">Páginas de Produtos Mais Vistas (GA)</div>
+    ${E.maisVistos.map(barRow).join('')}
+  </div>
+  <div class="card">
+    <div class="card-title">Termos mais buscados internamente</div>
+    ${E.buscas.map(b => `<div class="bar-row"><span class="lbl">${b.nome}</span><div class="bar-track"><div class="bar-fill" style="width:${b.pct}%;background:var(--purple);"></div></div><span class="bar-val">${b.val}</span></div>`).join('')}
+  </div>
+</div>
 
-            <div class="card">
-                <p class="card-title">Páginas mais Acessadas (Visualizações)</p>
-                <div style="margin-top: 10px;" class="text-xs">
-                    <div class="row-item"><span>/ (Página Inicial / Home)</span><strong>1.863</strong></div>
-                    <div class="row-item"><span>/feminino/scrub-harmonia-decote-canoa</span><strong>444</strong></div>
-                    <div class="row-item"><span>/scrubs/scrub-bem-estar-decote-v</span><strong>307</strong></div>
-                    <div class="row-item"><span>/jalecos/8003-blusa-masculina-biio</span><strong>242</strong></div>
-                </div>
-            </div>
-        </div>
+<div class="section-title">📈 Tráfego do Site — Histórico de Sessões (Google Analytics)</div>
+<div class="two-col">
+  <div class="card">
+    <div class="card-title">Evolução Mensal de Sessões (Acessos)</div>
+    <div class="chart-wrap"><canvas id="sessoesGaChart"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Duração Média das Sessões (Segundos)</div>
+    <div class="chart-wrap"><canvas id="duracaoGaChart"></canvas></div>
+  </div>
+</div>
 
-        <div class="grid-2" style="margin-top: 16px;">
-            <div class="card">
-                <p class="card-title">Termos mais Procurados Internamente no Site</p>
-                <div style="margin-top: 8px;">
-                    <div class="progress-container">
-                        <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="color:#aaa;">masculino camisa essencial button down manga longa b2b</span><strong>8,08%</strong></div>
-                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 100%; background-color:#3b82f6;"></div></div>
-                    </div>
-                    <div class="progress-container">
-                        <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="color:#aaa;">8008</span><strong>7,07%</strong></div>
-                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 87%; background-color:#3b82f6;"></div></div>
-                    </div>
-                    <div class="progress-container">
-                        <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="color:#aaa;">masculino camiseta empatia manga longa ecotton b2b</span><strong>7,07%</strong></div>
-                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 87%; background-color:#3b82f6;"></div></div>
-                    </div>
-                    <div class="progress-container">
-                        <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="color:#aaa;">80209</span><strong>6,06%</strong></div>
-                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 75%; background-color:#3b82f6;"></div></div>
-                    </div>
-                </div>
-            </div>
+<div class="section-title">📱 Redes Sociais — Histórico Meta &amp; Instagram (2026)</div>
+<div class="two-col">
+  <div class="card">
+    <div class="card-title">Evolução de Impressões / Visualizações (mil)</div>
+    <div class="chart-wrap"><canvas id="instaVisuChart"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Alcance de Contas Únicas (mil)</div>
+    <div class="chart-wrap"><canvas id="instaAlcaChart"></canvas></div>
+  </div>
+</div>
 
-            <div class="card">
-                <p class="card-title">Faturamento Direto por Tipo de Produto (Bruto)</p>
-                <div style="margin-top: 10px;">
-                    <div class="row-item">
-                        <div><span>JALECO MASCULINO PRIME CLÁSSICO</span><br><small style="color:#555;">Estoque Atual: 15 un.</small></div>
-                        <strong class="text-green">R$ 377,50 (1 un.)</strong>
-                    </div>
-                    <div class="row-item">
-                        <div><span>JALECO FEMININO PRIME CLÁSSICO</span><br><small style="color:#555;">Estoque Atual: 18 un.</small></div>
-                        <strong class="text-green">R$ 344,50 (1 un.)</strong>
-                    </div>
-                    <div class="row-item"><span>Outras Peças Corporativas / Faturamento de Tecido</span><strong>R$ 4.416,50</strong></div>
-                </div>
-            </div>
-        </div>
+<div class="section-title">📧 E-mail Marketing — Campanhas Ativas (Maio/2026)</div>
+<div class="card">
+  <div class="card-title">Disparos realizados no mês</div>
+  <table>
+    <thead><tr><th>Campanha</th><th>Data</th><th>Enviados</th><th>Entrega</th><th>Abertura</th><th>Cliques</th><th>Bounces</th></tr></thead>
+    <tbody>
+      ${D.email.campanhasAbril.map(c => `
+        <tr>
+          <td>${c.nome}</td>
+          <td style="color:var(--muted);">${c.data}</td>
+          <td>${c.enviados.toLocaleString('pt-BR')}</td>
+          <td>${c.entrega}</td>
+          <td>${c.abertura}</td>
+          <td>${c.cliques}</td>
+          <td style="color:var(--muted);">${c.bounces.toLocaleString('pt-BR')}</td>
+        </tr>`).join('')}
+    </tbody>
+  </table>
+</div>
 
-        <div class="section-title">Performance de Tráfego Pago &amp; Redes Sociais</div>
-        <div class="grid-3">
-            <div class="card">
-                <p class="card-title">Gestor de Anúncios — Campanhas Ativas</p>
-                <div style="margin-top: 10px;" class="text-xs">
-                    <div class="row-item"><span>Produto em Destaque:</span><strong class="text-blue">SCRUB MASCULINO</strong></div>
-                    <div class="row-item"><span>Visualizações Totais do Criativo:</span><strong>3,6 mil</strong></div>
-                    <div class="row-item"><span>Cliques no Link / Destino:</span><strong>86 cliques</strong></div>
-                    <div class="row-item"><span>Taxa de Cliques no Anúncio (CTR):</span><strong class="text-green">2,37%</strong></div>
-                    <div class="row-item"><span>Orçamento de Investimento:</span><span>R$ 55,00 / Dia</span></div>
-                </div>
-            </div>
+<div class="section-title">📡 RD Station — Captação de Novos Leads (Maio/2026)</div>
+<div class="kpi-grid-2">
+  ${kpi('Leads — Pop-up de Saída (Site)', R.leadsPopup)}
+  ${kpi('Leads — Botão WhatsApp Flutuante', R.leadsWhatsapp)}
+</div>
 
-            <div class="card">
-                <p class="card-title">Métricas de Alcance Orgânico &amp; Social</p>
-                <div style="margin-top: 10px;" class="text-xs">
-                    <div class="row-item"><span>Impressões de Conteúdo</span><strong class="text-blue">57,1 mil (↑ +43,3%)</strong></div>
-                    <div class="row-item"><span>Contas Únicas Alcancadas</span><strong>25,5 mil (↑ +106,6%)</strong></div>
-                    <div class="row-item"><span>Cliques em Botões de Ligação</span><strong class="text-green">2,4 mil (↑ +213,1%)</strong></div>
-                    <div class="row-item"><span>Interações Totais com Posts</span><strong>383 (↑ +60,3%)</strong></div>
-                    <div class="row-item"><span>Novos Seguidores</span><strong class="text-purple">69 seguidores</strong></div>
-                </div>
-            </div>
+<div class="two-col" style="margin-top:8px;">
+  <div class="card">
+    <div class="card-title">Fontes de Atração dos Novos Leads</div>
+    ${R.fontesLeads.map(b => `<div class="bar-row"><span class="lbl">${b.nome}</span><div class="bar-track"><div class="bar-fill" style="width:${b.pct}%;background:var(--green);"></div></div><span class="bar-val">${b.val} Leads</span></div>`).join('')}
+  </div>
+  <div class="card">
+    <div class="card-title">Histórico de leads acumulados — 2026</div>
+    <div class="chart-wrap-sm"><canvas id="leadsChart"></canvas></div>
+  </div>
+</div>
 
-            <div class="card">
-                <p class="card-title">Perfil do Público Ativo (Instagram)</p>
-                <div style="margin-top: 10px;" class="text-xs">
-                    <div class="row-item"><span>Gênero Dominante:</span><strong>74,7% Mulheres / 25,3% Homens</strong></div>
-                    <div class="row-item"><span>Faixa Etária Principal:</span><strong class="text-purple">45 - 54 anos</strong></div>
-                    <div class="row-item"><span>Cidade Líder em Acessos:</span><strong>Belo Horizonte, MG (9,2%)</strong></div>
-                </div>
-            </div>
-        </div>
+<div class="section-title">🚨 Alertas, Insights e Oportunidades</div>
+<div class="card">
+  <table>
+    <thead><tr><th>Situação</th><th>Prioridade</th><th>Ação sugerida</th></tr></thead>
+    <tbody>
+      ${D.alertas.map(a => `<tr><td style="color:var(--muted);">${a.situacao}</td><td><span class="badge badge-${a.badge}">${a.prioridade}</span></td><td>${a.acao}</td></tr>`).join('')}
+    </tbody>
+  </table>
+</div>
 
-    </div>
+<footer>Dashboard de Marketing · Atualizado em ${D.atualizadoEm}</footer>
+`;
 
+const green = '#1D9E75', pink = '#D4537E', purple = '#7F77DD', amber = '#EF9F27', blue = '#378ADD';
+const gridColor = 'rgba(255,255,255,0.06)', tickColor = 'rgba(255,255,255,0.35)';
+const commonScales = {
+  x: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 10 } } },
+  y: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 10 } } }
+};
+
+// Gráfico de Sessões do Google Analytics
+new Chart(document.getElementById('sessoesGaChart'), {
+  type: 'bar',
+  data: {
+    labels: H.labels,
+    datasets: [{ label: 'Sessões', data: H.visitasGa, backgroundColor: [purple+'66', purple+'66', purple+'66', purple+'66', blue], borderColor: [purple, purple, purple, purple, blue], borderWidth: 1, borderRadius: 4 }]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: commonScales }
+});
+
+// Gráfico de Duração de Sessão (GA)
+new Chart(document.getElementById('duracaoGaChart'), {
+  type: 'line',
+  data: {
+    labels: H.labels,
+    datasets: [{ label: 'Duração Média (s)', data: H.duracaoGa, borderColor: amber, backgroundColor: amber+'15', fill: true, tension: 0.3, pointRadius: 4, borderWidth: 2 }]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: commonScales }
+});
+
+// Gráfico de Visualizações do Instagram
+new Chart(document.getElementById('instaVisuChart'), {
+  type: 'bar',
+  data: {
+    labels: H.labels,
+    datasets: [{ label: 'Visualizações (mil)', data: H.instaVisu, backgroundColor: [pink+'55', pink+'55', pink+'55', pink+'55', pink], borderColor: [pink, pink, pink, pink, pink], borderWidth: 1, borderRadius: 4 }]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: commonScales }
+});
+
+// Gráfico de Alcance de Contas (Instagram)
+new Chart(document.getElementById('instaAlcaChart'), {
+  type: 'line',
+  data: {
+    labels: H.labels,
+    datasets: [{ label: 'Alcance (mil)', data: H.instaAlca, borderColor: green, backgroundColor: green+'15', fill: true, tension: 0.3, pointRadius: 4, borderWidth: 2 }]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: commonScales }
+});
+
+// Histórico de Leads RD
+new Chart(document.getElementById('leadsChart'), {
+  type: 'line',
+  data: {
+    labels: DADOS.rd.leadsHistorico.labels,
+    datasets: [
+      { label: 'Pop-up', data: DADOS.rd.leadsHistorico.popup, borderColor: pink, backgroundColor: pink+'22', fill: true, tension: 0.4, pointRadius: 4, borderWidth: 2 },
+      { label: 'WhatsApp', data: DADOS.rd.leadsHistorico.whatsapp, borderColor: green, backgroundColor: green+'22', fill: true, tension: 0.4, pointRadius: 4, borderWidth: 2 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { labels: { color: tickColor, font: { size: 11 }, boxWidth: 10 } } },
+    scales: commonScales
+  }
+});
+</script>
 </body>
 </html>
