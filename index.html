@@ -3,151 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Performance</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Performance Comercial - Maio 2026</title>
     <style>
+        /* CSS Nativo - Zero dependência de servidores externos */
         body {
-            background-color: #191919 !important; /* Cor exata do Notion Dark */
+            background-color: #191919;
             color: #FFFFFFDE;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 24px;
         }
-        .notion-box {
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-b: 1px solid #2a2a2a;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        .header h1 { margin: 0; font-size: 20px; font-weight: 700; }
+        .header p { margin: 4px 0 0 0; font-size: 12px; color: #888; }
+        .badge {
+            background-color: #2a2a2a;
+            color: #eee;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid #3a3a3a;
+        }
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .card {
             background-color: #202020;
             border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 16px;
+        }
+        .card-title {
+            font-size: 11px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+        .card-value {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 8px 0 0 0;
+            font-family: monospace;
+        }
+        .text-blue { color: #3b82f6; }
+        .text-purple { color: #a855f7; }
+        .text-emerald { color: #10b981; }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .item-list {
+            margin-top: 12px;
+        }
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            background-color: #191919;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #2a2a2a;
+            font-size: 12px;
+            margin-bottom: 8px;
         }
     </style>
 </head>
-<body class="p-4 min-h-screen">
+<body>
 
-    <div class="max-w-6xl mx-auto space-y-6">
+    <div class="container">
         
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-[#2a2a2a] pb-4">
+        <div class="header">
             <div>
-                <h1 class="text-lg font-bold text-white">Dashboard de Performance Comercial</h1>
-                <p class="text-xs text-gray-400">Dados consolidados e integrados comercialmente</p>
+                <h1>Dashboard de Performance Comercial</h1>
+                <p>Dados Consolidados: Google Analytics, Meta Ads &amp; Instagram</p>
             </div>
-            <div class="mt-2 sm:mt-0">
-                <span class="bg-[#2a2a2a] text-gray-300 text-[10px] font-medium px-2 py-1 rounded border border-[#3a3a3a]">Maio 2026</span>
+            <span class="badge">Maio 2026</span>
+        </div>
+
+        <div class="grid-4">
+            <div class="card">
+                <p class="card-title">Vendas Realizadas (R$)</p>
+                <p class="card-value text-emerald">R$ 51.520,00</p>
+            </div>
+            <div class="card">
+                <p class="card-title">Vendas Realizadas (Un.)</p>
+                <p class="card-value text-blue">67 pedidos</p>
+            </div>
+            <div class="card">
+                <p class="card-title">Sessões Totais (GA)</p>
+                <p class="card-value text-purple">4.772</p>
+            </div>
+            <div class="card">
+                <p class="card-title">Conversão da Loja</p>
+                <p class="card-value">1,57%</p>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="notion-box p-4 rounded-xl">
-                <p class="text-[11px] font-medium text-gray-400 uppercase tracking-wider">Vendas Realizadas (R$)</p>
-                <p class="text-xl font-bold mt-1 text-white font-mono">R$ 51.520,00</p>
-            </div>
-            <div class="notion-box p-4 rounded-xl">
-                <p class="text-[11px] font-medium text-gray-400 uppercase tracking-wider">Vendas Realizadas (Un.)</p>
-                <p class="text-xl font-bold mt-1 text-blue-400 font-mono">67 pedidos</p>
-            </div>
-            <div class="notion-box p-4 rounded-xl">
-                <p class="text-[11px] font-medium text-gray-400 uppercase tracking-wider">Sessões Totais (GA)</p>
-                <p class="text-xl font-bold mt-1 text-purple-400 font-mono">4.772</p>
-            </div>
-            <div class="notion-box p-4 rounded-xl">
-                <p class="text-[11px] font-medium text-gray-400 uppercase tracking-wider">Conversão da Loja</p>
-                <p class="text-xl font-bold mt-1 text-emerald-400 font-mono">1,57%</p>
-            </div>
-        </div>
-
-        <div class="notion-box p-4 rounded-xl">
-            <h2 class="text-xs font-semibold text-gray-300 uppercase tracking-wider mb-3">Etapas do Funil</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                <div class="bg-[#191919] p-3 rounded border border-[#2a2a2a] text-center">
-                    <p class="text-[10px] text-gray-400 uppercase">Visitantes</p>
-                    <p class="text-base font-bold text-white font-mono mt-0.5">3.537</p>
+        <div class="card" style="margin-bottom: 24px;">
+            <p class="card-title" style="margin-bottom: 12px;">Etapas do Funil de Vendas</p>
+            <div class="grid-4" style="margin-bottom: 0;">
+                <div class="card" style="background: #191919; text-align: center; padding: 12px;">
+                    <span style="font-size: 10px; color: #888;">VISITANTES</span>
+                    <p style="font-size: 16px; font-weight: bold; margin: 4px 0 0 0;">3.537</p>
                 </div>
-                <div class="bg-[#191919] p-3 rounded border border-[#2a2a2a] text-center">
-                    <p class="text-[10px] text-blue-400 uppercase">Leads</p>
-                    <p class="text-base font-bold text-blue-400 font-mono mt-0.5">23</p>
+                <div class="card" style="background: #191919; text-align: center; padding: 12px; border-color: #3b82f6;">
+                    <span style="font-size: 10px; color: #3b82f6;">LEADS</span>
+                    <p style="font-size: 16px; font-weight: bold; margin: 4px 0 0 0; color: #3b82f6;">23</p>
                 </div>
-                <div class="bg-[#191919] p-3 rounded border border-[#2a2a2a] text-center">
-                    <p class="text-[10px] text-amber-400 uppercase">Oportunidades</p>
-                    <p class="text-base font-bold text-amber-400 font-mono mt-0.5">3</p>
+                <div class="card" style="background: #191919; text-align: center; padding: 12px;">
+                    <span style="font-size: 10px; color: #eab308;">OPORTUNIDADES</span>
+                    <p style="font-size: 16px; font-weight: bold; margin: 4px 0 0 0; color: #eab308;">3</p>
                 </div>
-                <div class="bg-[#191919] p-3 rounded border border-[#2a2a2a] text-center">
-                    <p class="text-[10px] text-emerald-400 uppercase">Vendas</p>
-                    <p class="text-base font-bold text-emerald-400 font-mono mt-0.5">3</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <div class="notion-box p-4 rounded-xl lg:col-span-2">
-                <h3 class="text-xs font-semibold text-gray-300 uppercase tracking-wider mb-3">Evolução do Tráfego</h3>
-                <div class="h-44 w-full">
-                    <canvas id="notionChartCanvas"></canvas>
-                </div>
-            </div>
-            <div class="notion-box p-4 rounded-xl">
-                <h3 class="text-xs font-semibold text-gray-300 uppercase tracking-wider mb-3">Produtos Mais Vistos</h3>
-                <div class="space-y-2 text-xs">
-                    <div class="p-2 bg-[#191919] rounded border border-[#2a2a2a] flex justify-between">
-                        <span>Scrub Fem. Harmonia</span>
-                        <span class="font-bold text-gray-400">198</span>
-                    </div>
-                    <div class="p-2 bg-[#191919] rounded border border-[#2a2a2a] flex justify-between">
-                        <span>Scrub Masc. Bem-Estar</span>
-                        <span class="font-bold text-gray-400">137</span>
-                    </div>
-                    <div class="p-2 bg-[#191919] rounded border border-[#2a2a2a] flex justify-between">
-                        <span>Scrub Fem. Bem-Estar</span>
-                        <span class="font-bold text-gray-400">125</span>
-                    </div>
+                <div class="card" style="background: #191919; text-align: center; padding: 12px;">
+                    <span style="font-size: 10px; color: #10b981;">VENDAS</span>
+                    <p style="font-size: 16px; font-weight: bold; margin: 4px 0 0 0; color: #10b981;">3</p>
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="notion-box p-4 rounded-xl">
-                <h3 class="text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Performance Meta Ads</h3>
-                <div class="p-3 bg-[#191919] rounded border border-[#2a2a2a] text-xs space-y-1.5">
-                    <p><span class="text-gray-400">Criativo:</span> <span class="text-white font-medium">SCRUB MASCULINO</span></p>
-                    <p><span class="text-gray-400">Cliques no Link:</span> <span class="text-blue-400 font-mono font-bold">86</span></p>
-                    <p><span class="text-gray-400">Taxa (CTR):</span> <span class="text-emerald-400 font-mono font-bold">2,37%</span></p>
+        <div class="grid-2">
+            <div class="card">
+                <p class="card-title">Produtos Mais Vistos</p>
+                <div class="item-list">
+                    <div class="item-row"><span>Camisa Scrub Fem. Harmonia</span><span class="text-blue">198</span></div>
+                    <div class="item-row"><span>Camisa Scrub Masc. Bem-Estar</span><span class="text-blue">137</span></div>
+                    <div class="item-row"><span>Camisa Scrub Fem. Bem-Estar</span><span class="text-blue">125</span></div>
                 </div>
             </div>
-            <div class="notion-box p-4 rounded-xl">
-                <h3 class="text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Público Alvo (Instagram)</h3>
-                <div class="p-3 bg-[#191919] rounded border border-[#2a2a2a] text-xs space-y-1.5">
-                    <p><span class="text-gray-400">Gênero:</span> <span class="text-white font-medium">74,7% Mulheres</span></p>
-                    <p><span class="text-gray-400">Idade Principal:</span> <span class="text-purple-400 font-medium">45 - 54 anos</span></p>
-                    <p><span class="text-gray-400">Alcance Geral:</span> <span class="text-white font-mono">57,1 mil</span></p>
+
+            <div class="card">
+                <p class="card-title">Performance Meta Ads &amp; Insta</p>
+                <div class="item-list">
+                    <div class="item-row"><span>Criativo Ativo:</span><strong>SCRUB MASCULINO</strong></div>
+                    <div class="item-row"><span>CTR (Taxa de Cliques):</span><span class="text-emerald">2,37%</span></div>
+                    <div class="item-row"><span>Público Predominante:</span><span>74,7% Mulheres (45-54 anos)</span></div>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            const ctx = document.getElementById('notionChartCanvas').getContext('2d');
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['11 Mai', '14 Mai', '17 Mai', '20 Mai', '23 Mai', '26 Mai', '29 Mai', '01 Jun'],
-                    datasets: [{
-                        data: [40, 560, 110, 150, 380, 130, 420, 150],
-                        borderColor: '#3b82f6',
-                        backgroundColor: 'rgba(59, 130, 246, 0.03)',
-                        borderWidth: 2,
-                        fill: true,
-                        tension: 0.2,
-                        pointRadius: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        y: { grid: { color: '#2a2a2a' }, ticks: { color: '#777', font: { size: 9 } } },
-                        x: { grid: { display: false }, ticks: { color: '#777', font: { size: 9 } } }
-                    }
-                }
-            });
-        });
-    </script>
 </body>
 </html>
