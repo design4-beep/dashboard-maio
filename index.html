@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard de Performance - Maio 2026</title>
+    <title>Dashboard de Performance Geral - Maio 2026</title>
     <style>
-        /* CSS NATIVO PURÍSSIMO - Sem dependências externas ou bloqueios no Notion */
+        /* CSS NATIVO ULTRA SEGURO - Sem dependências externas ou bloqueios no Notion */
         body {
-            background-color: #191919; /* Cor idêntica ao fundo Dark do Notion */
+            background-color: #191919; /* Fundo oficial do Notion Dark */
             color: #FFFFFFDE;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
@@ -40,7 +40,7 @@
         }
         .badge {
             background-color: #242424;
-            color: #86efac;
+            color: #3b82f6;
             font-size: 11px;
             font-family: monospace;
             padding: 4px 10px;
@@ -48,10 +48,16 @@
             border: 1px solid #2e2e2e;
         }
 
-        /* GRIDS */
+        /* GRIDS COMPATÍVEIS COM RESPONSIVIDADE */
         .grid-4 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 16px;
             margin-bottom: 24px;
         }
@@ -62,7 +68,7 @@
             margin-bottom: 24px;
         }
 
-        /* CARDS */
+        /* ESTILIZAÇÃO DOS CARDS */
         .card {
             background-color: #202020;
             border: 1px solid #2a2a2a;
@@ -85,17 +91,48 @@
         }
         .card-sub {
             font-size: 11px;
-            margin: 8px 0 0 0;
+            margin: 6px 0 0 0;
             color: #64748b;
         }
+        .text-green-up { color: #10b981; font-weight: 500; font-size: 11px; margin-top: 4px; display: block; }
+        .text-red-down { color: #ef4444; font-weight: 500; font-size: 11px; margin-top: 4px; display: block; }
 
-        /* CORES DE TEXTO */
+        /* DESTAQUES DE CORES */
         .text-blue { color: #3b82f6; }
         .text-purple { color: #a855f7; }
         .text-emerald { color: #10b981; }
         .text-amber { color: #f59e0b; }
 
-        /* FUNIL DE VENDAS COMPACTO */
+        /* PROGRESSO / COMPONENTES DE LISTA */
+        .row-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            background-color: #191919;
+            border: 1px solid #2a2a2a;
+            border-radius: 6px;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+        .progress-container {
+            margin-bottom: 12px;
+        }
+        .progress-bar-bg {
+            background-color: #2a2a2a;
+            height: 6px;
+            border-radius: 3px;
+            width: 100%;
+            margin-top: 4px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            background-color: #3b82f6;
+            height: 100%;
+            border-radius: 3px;
+        }
+
+        /* FUNIL DE CONVERSÃO RD STATION */
         .funnel-container {
             display: flex;
             gap: 8px;
@@ -122,31 +159,34 @@
             font-family: monospace;
         }
 
-        /* TABELAS E LISTAS */
-        .row-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 12px;
-            background-color: #191919;
-            border: 1px solid #2a2a2a;
-            border-radius: 6px;
+        /* TABELAS ESPECÍFICAS MODO ESCURO */
+        table {
+            width: 100%;
+            border-collapse: collapse;
             font-size: 12px;
-            margin-bottom: 8px;
+            text-align: left;
+            margin-top: 10px;
         }
-        .row-item span {
-            color: #cccccc;
+        th {
+            background-color: #191919;
+            color: #888;
+            text-transform: uppercase;
+            font-size: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #2a2a2a;
         }
-        .row-item strong {
-            font-family: monospace;
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #2a2a2a;
         }
+        tr:hover { background-color: #242424; }
 
-        /* GRÁFICO DE BARRAS NATIVO (Evolução Diária de Sessões) */
+        /* GRÁFICO DIÁRIO EM BARRAS HÁPTICAS (GOOG ANALYTICS) */
         .chart-native {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            height: 160px;
+            height: 140px;
             padding: 10px 0;
             margin-top: 15px;
             border-bottom: 1px solid #2a2a2a;
@@ -158,19 +198,12 @@
             flex: 1;
         }
         .chart-bar {
-            width: 16px;
+            width: 14px;
             background-color: #3b82f6;
-            border-radius: 3px 3px 0 0;
-            transition: height 0.3s ease;
+            border-radius: 2px 2px 0 0;
         }
-        .chart-bar.peak {
-            background-color: #60a5fa;
-        }
-        .chart-label {
-            font-size: 9px;
-            color: #666;
-            margin-top: 6px;
-        }
+        .chart-bar.peak { background-color: #60a5fa; }
+        .chart-label { font-size: 9px; color: #666; margin-top: 6px; }
     </style>
 </head>
 <body>
@@ -179,66 +212,101 @@
         
         <div class="header">
             <div class="header-title">
-                <h1>Performance Integrada Comercial</h1>
-                <p>Google Analytics, Meta Ads &amp; Métricas de E-mail</p>
+                <h1>Painel Comercial Consolidado</h1>
+                <p>Métricas Unificadas — Período: 01/05/2026 a 31/05/2026</p>
             </div>
-            <span class="badge">MAIO 2026 CONSOLIDADO</span>
+            <span class="badge">CONSOLIDADO OMNICHANNEL</span>
         </div>
 
+        <h2 style="font-size: 14px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Métricas Globais de Vendas</h2>
         <div class="grid-4">
             <div class="card">
-                <p class="card-title">Faturamento Total</p>
+                <p class="card-title">Faturamento Consolidado</p>
                 <p class="card-value text-emerald">R$ 51.520,00</p>
-                <p class="card-sub">Pedidos Pagos Conciliados</p>
+                <p class="card-sub">Total de Pedidos Gerados: <strong class="text-white">67</strong></p>
             </div>
             <div class="card">
-                <p class="card-title">Vendas Aprovadas</p>
-                <p class="card-value text-blue">67 pedidos</p>
-                <p class="card-sub">Volume total do e-commerce</p>
+                <p class="card-title">Produtos Vendidos (Valor Bruto)</p>
+                <p class="card-value">R$ 5.138,50</p>
+                <p class="card-sub">Movimentação física de peças</p>
             </div>
             <div class="card">
-                <p class="card-title">Sessões Totais (GA)</p>
-                <p class="card-value text-purple">4.772</p>
-                <p class="card-sub">Duração Média: 103 segundos</p>
+                <p class="card-title">Ticket Médio Geral</p>
+                <p class="card-value text-blue">R$ 1.215,34</p>
+                <p class="card-sub">Média por cliente ativo</p>
             </div>
             <div class="card">
-                <p class="card-title">Conversão da Loja</p>
-                <p class="card-value">1,57%</p>
-                <p class="card-sub">Média de cliques convertidos</p>
+                <p class="card-title">Lista Geral de Pedidos</p>
+                <p class="card-value">4 Ativos</p>
+                <p class="card-sub">Conciliados em carteira principal</p>
             </div>
         </div>
 
-        <div class="card" style="margin-bottom: 24px;">
-            <p class="card-title">Funil de Conversão Comercial</p>
+        <h2 style="font-size: 14px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; margin-top: 24px;">Performance da Loja Virtual (E-commerce)</h2>
+        <div class="grid-4">
+            <div class="card">
+                <p class="card-title">Faturamento Loja Virtual</p>
+                <p class="card-value text-amber">R$ 760,40</p>
+                <span class="text-red-down">↓ -85,98% (Período Ant: R$ 5.423,80)</span>
+            </div>
+            <div class="card">
+                <p class="card-title">Pedidos Confirmados (un.)</p>
+                <p class="card-value text-blue">2 pedidos</p>
+                <span class="text-red-down">↓ -33,33% (Período Ant: 3 pedidos)</span>
+            </div>
+            <div class="card">
+                <p class="card-title">Visitas na Loja Virtual</p>
+                <p class="card-value text-purple">4.254</p>
+                <span class="text-green-up">↑ +266,72% (Período Ant: 1.160)</span>
+            </div>
+            <div class="card">
+                <p class="card-title">Taxa de Conversão E-com</p>
+                <p class="card-value">0,07%</p>
+                <span class="text-red-down">↓ -58,82% (Período Ant: 0,17%)</span>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 24px; margin-top: 24px;">
+            <p class="card-title">Funil de Leads e Vendas Comerciais (RD Station)</p>
             <div class="funnel-container">
                 <div class="funnel-stage">
                     <span>VISITANTES</span>
                     <p>3.537</p>
+                    <span class="text-green-up" style="display:inline;">↑ +23,93% (+683)</span>
                 </div>
                 <div class="funnel-stage">
                     <span class="text-blue">LEADS</span>
                     <p class="text-blue">23</p>
+                    <span class="text-red-down" style="display:inline;">↓ -99,95%</span>
+                </div>
+                <div class="funnel-stage">
+                    <span>LEADS QUALIF.</span>
+                    <p style="color:#444;">-</p>
+                    <span style="font-size:10px; color:#555;">0,00% (0)</span>
                 </div>
                 <div class="funnel-stage">
                     <span class="text-amber">OPORTUNIDADES</span>
                     <p class="text-amber">3</p>
+                    <span class="text-red-down" style="display:inline;">↓ -85,00% (-17)</span>
                 </div>
                 <div class="funnel-stage">
                     <span class="text-emerald">VENDAS</span>
                     <p class="text-emerald">3</p>
+                    <span class="text-red-down" style="display:inline;">↓ -78,57% (-11)</span>
                 </div>
             </div>
         </div>
 
-        <div class="grid-2">
+        <div class="grid-3">
             <div class="card">
-                <p class="card-title">Evolução de Sessões (Picos do Período)</p>
+                <p class="card-title">Tráfego Diário — Sessões (Google Analytics)</p>
+                <p class="card-sub">Total de sessões no mês: <strong class="text-white">4.772</strong> (Duração média: 103s)</p>
                 <div class="chart-native">
                     <div class="chart-bar-wrapper"><div class="chart-bar" style="height: 15px;"></div><span class="chart-label">11/05</span></div>
-                    <div class="chart-bar-wrapper"><div class="chart-bar peak" style="height: 140px;"></div><span class="chart-label">14/05</span></div>
+                    <div class="chart-bar-wrapper"><div class="chart-bar peak" style="height: 135px;"></div><span class="chart-label">14/05</span></div>
                     <div class="chart-bar-wrapper"><div class="chart-bar" style="height: 35px;"></div><span class="chart-label">17/05</span></div>
                     <div class="chart-bar-wrapper"><div class="chart-bar" style="height: 45px;"></div><span class="chart-label">20/05</span></div>
-                    <div class="chart-bar-wrapper"><div class="chart-bar peak" style="height: 95px;"></div><span class="chart-label">23/05</span></div>
+                    <div class="chart-bar-wrapper"><div class="chart-bar peak" style="height: 90px;"></div><span class="chart-label">23/05</span></div>
                     <div class="chart-bar-wrapper"><div class="chart-bar" style="height: 40px;"></div><span class="chart-label">26/05</span></div>
                     <div class="chart-bar-wrapper"><div class="chart-bar peak" style="height: 110px;"></div><span class="chart-label">29/05</span></div>
                     <div class="chart-bar-wrapper"><div class="chart-bar" style="height: 50px;"></div><span class="chart-label">01/06</span></div>
@@ -246,34 +314,162 @@
             </div>
 
             <div class="card">
-                <p class="card-title">Sessões por Dispositivo &amp; Audiência</p>
+                <p class="card-title">Métricas de Alcance (Instagram Organico/Ads)</p>
+                <div style="margin-top: 10px;" class="text-xs">
+                    <div class="row-item"><span>Visualizações Totais</span><strong class="text-blue">57,1 mil (↑ +43,3%)</strong></div>
+                    <div class="row-item"><span>Alcance Líquido de Contas</span><strong>25,5 mil (↑ +106,6%)</strong></div>
+                    <div class="row-item"><span>Cliques em Ligações no Perfil</span><strong class="text-emerald">2,4 mil (↑ +213,1%)</strong></div>
+                    <div class="row-item"><span>Interações com Conteúdos</span><strong>383 (↑ +60,3%)</strong></div>
+                    <div class="row-item"><span>Novos Seguidores Conquistados</span><strong class="text-purple">69 (↑ +38%)</strong></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="card-title">Sessões por Dispositivo &amp; Captação</p>
                 <div style="margin-top: 10px;">
-                    <div class="row-item"><span>Mobile (Celulares)</span><strong class="text-blue">72,72%</strong></div>
-                    <div class="row-item"><span>Desktop (Computadores)</span><strong class="text-purple">26,84%</strong></div>
-                    <div class="row-item"><span>Público Predominante</span><strong>74,7% Mulheres</strong></div>
+                    <div class="row-item"><span>Mobile (Smartphones)</span><strong>72,72% (3.470 sessões)</strong></div>
+                    <div class="row-item"><span>Desktop (Computadores)</span><strong>26,84% (1.281 sessões)</strong></div>
+                    <div class="row-item"><span>Botão WhatsApp Site (Leads)</span><strong class="text-emerald">8 Leads</strong></div>
+                    <div class="row-item"><span>Pop-Up de Rolagem Site</span><strong class="text-blue">6 Leads</strong></div>
+                    <div class="row-item"><span>Contatos por Mensagem</span><strong class="text-red-down">4 (↓ -42,9%)</strong></div>
                 </div>
             </div>
         </div>
 
         <div class="grid-2">
             <div class="card">
-                <p class="card-title">Produtos Mais Vistos (Visualizações)</p>
-                <div style="margin-top: 10px;">
-                    <div class="row-item"><span>Camisa Scrub Feminina Harmonia</span><strong>198</strong></div>
-                    <div class="row-item"><span>Camisa Scrub Masculino Bem-Estar</span><strong>137</strong></div>
-                    <div class="row-item"><span>Camisa Scrub Feminino Bem-Estar</span><strong>125</strong></div>
-                    <div class="row-item"><span>Calça Scrub Feminina Conforto Flex</span><strong>112</strong></div>
+                <p class="card-title">Gestor de Anúncios — Meta Ads</p>
+                <div style="margin-top: 10px;" class="text-xs">
+                    <div class="row-item"><span>Campanha Criativo Ativo:</span><strong class="text-blue">SCRUB MASCULINO</strong></div>
+                    <div class="row-item"><span>Visualizações Gerais do Anúncio:</span><strong>3,6 mil visualizações</strong></div>
+                    <div class="row-item"><span>Cliques Totais na Ligação/Link:</span><strong class="text-white">86 cliques</strong></div>
+                    <div class="row-item"><span>Taxa de Cliques (CTR do Anúncio):</span><strong class="text-emerald">2,37%</strong></div>
+                    <div class="row-item"><span>Orçamento de Investimento Diário:</span><strong>R$ 55,00 / Dia</strong></div>
                 </div>
             </div>
 
             <div class="card">
-                <p class="card-title">Anúncio Ativo Meta Ads</p>
-                <div style="margin-top: 10px;">
-                    <div class="row-item"><span>Produto focado:</span><strong class="text-blue">SCRUB MASCULINO</strong></div>
-                    <div class="row-item"><span>Cliques no Link do Anúncio:</span><strong>86 cliques</strong></div>
-                    <div class="row-item"><span>Taxa de Cliques Geral (CTR):</span><strong class="text-emerald">2,37%</strong></div>
-                    <div class="row-item"><span>Visualizações do Criativo:</span><strong>3,6 mil</strong></div>
+                <p class="card-title">Faturamento Direto por Produto (Mais Vendidos)</p>
+                <div style="margin-top: 10px;" class="text-xs">
+                    <div class="row-item">
+                        <div>
+                            <span>JALECO MASCULINO PRIME CLÁSSICO</span><br>
+                            <small style="color:#555;">Estoque: 15 un.</small>
+                        </div>
+                        <strong class="text-emerald">R$ 377,50 (1 un.)</strong>
+                    </div>
+                    <div class="row-item">
+                        <div>
+                            <span>JALECO FEMININO PRIME CLÁSSICO</span><br>
+                            <small style="color:#555;">Estoque: 18 un.</small>
+                        </div>
+                        <strong class="text-emerald">R$ 344,50 (1 un.)</strong>
+                    </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <p class="card-title">Produtos Mais Vistos (Visualizações de Página)</p>
+                <div style="margin-top: 8px;">
+                    <div class="progress-container">
+                        <div style="display:flex; justify-content:space-between; font-size:12px;"><span>Camisa Scrub Feminina Harmonia</span><strong>198</strong></div>
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 100%"></div></div>
+                    </div>
+                    <div class="progress-container">
+                        <div style="display:flex; justify-content:space-between; font-size:12px;"><span>Camisa Scrub Masculino Bem-Estar</span>
+                        <strong>137</strong></div>
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 70%"></div></div>
+                    </div>
+                    <div class="progress-container">
+                        <div style="display:flex; justify-content:space-between; font-size:12px;"><span>Camisa Scrub Feminino Bem-Estar</span><strong>125</strong></div>
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 63%"></div></div>
+                    </div>
+                    <div class="progress-container">
+                        <div style="display:flex; justify-content:space-between; font-size:12px;"><span>Calça Scrub Feminina Conforto Flex</span><strong>112</strong></div>
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 56%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="card-title">Termos Mais Buscados na Loja Virtual</p>
+                <div style="margin-top: 8px;">
+                    <div class="progress-container">
+                        <div style="display:flex; justify-content:space-between; font-size:11px;"><span style="color:#aaa;">masculino camisa essencial button down manga longa b2b</span><strong>8,08%</strong></div>
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 100%; background-color:#a855f7;"></div></div>
+                    </div>
+                    <div class="progress-container">
+                        <div style="display:flex; justify-content:space-between; font-size:11px;"><span style="color:#aaa;">8008</span><strong>7,07%</strong></div>
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 87%; background-color:#a855f7;"></div></div>
+                    </div>
+                    <div class="progress-container">
+                        <div style="display:flex; justify-content:space-between; font-size:11px;"><span style="color:#aaa;">masculino camiseta empatia manga longa ecotton b2b</span><strong>7,07%</strong></div>
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 87%; background-color:#a855f7;"></div></div>
+                    </div>
+                    <div class="progress-container">
+                        <div style="display:flex; justify-content:space-between; font-size:11px;"><span style="color:#aaa;">80209</span><strong>6,06%</strong></div>
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 75%; background-color:#a855f7;"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 24px;">
+            <p class="card-title">Métricas de Campanhas de E-mail Marketing</p>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome da Campanha</th>
+                            <th>Data de Envio</th>
+                            <th>Volume</th>
+                            <th>Abertura</th>
+                            <th>Cliques (CTOR)</th>
+                            <th>Descadastros</th>
+                            <th>Spam</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-blue" style="font-weight:600;">Inverno Coleção BiiO</td>
+                            <td>29/05/2026 17:04</td>
+                            <td>5.104</td>
+                            <td>12,27%</td>
+                            <td class="text-emerald">0,18%</td>
+                            <td style="color:#ef4444;">0,33%</td>
+                            <td>0,12%</td>
+                        </tr>
+                        <tr>
+                            <td class="text-blue" style="font-weight:600;">Adeus, jalecos sem graça</td>
+                            <td>22/05/2026 09:00</td>
+                            <td>5.177</td>
+                            <td>13,29%</td>
+                            <td class="text-emerald">0,55%</td>
+                            <td style="color:#ef4444;">0,85%</td>
+                            <td>0,16%</td>
+                        </tr>
+                        <tr>
+                            <td class="text-blue" style="font-weight:600;">BiiO Corporate</td>
+                            <td>14/05/2026 08:00</td>
+                            <td>5.255</td>
+                            <td>12,40%</td>
+                            <td class="text-emerald">0,65%</td>
+                            <td style="color:#ef4444;">0,74%</td>
+                            <td>0,10%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <p class="card-title">Perfil Demográfico do Público Ativo (Instagram/Meta)</p>
+            <div class="grid-3" style="margin-bottom:0; margin-top:10px; font-size:12px;">
+                <div class="row-item"><span>Gênero Dominante:</span><strong>74,7% Mulheres <span style="color:#555; font-weight:normal;">| 25,3% Homens</span></strong></div>
+                <div class="row-item"><span>Faixa Etária Principal:</span><strong class="text-purple">45 - 54 anos</strong></div>
+                <div class="row-item"><span>Cidade Top 1:</span><strong>Belo Horizonte, MG (9,2%)</strong></div>
             </div>
         </div>
 
