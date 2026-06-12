@@ -97,6 +97,12 @@
             gap: 12px;
         }
 
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 12px;
+        }
+
         .grid-2 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(49%, 1fr));
@@ -141,13 +147,14 @@
         .down { color: var(--red-accent); }
         .neutral { color: var(--text-muted); }
 
-        /* TABELA COMPARATIVA COMPLETA MÊS A MÊS */
+        /* TABELA CONTAINER */
         .table-container {
             overflow-x: auto;
             margin-top: 8px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
             background-color: var(--bg-card);
+            margin-bottom: 16px;
         }
 
         table {
@@ -230,50 +237,7 @@
             font-weight: 600;
         }
 
-        /* FUNIL RD STATION STYLES */
-        .funnel {
-            display: flex;
-            gap: 8px;
-            margin-top: 8px;
-        }
-
-        .funnel-stage {
-            flex: 1;
-            background-color: var(--bg-notion);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 12px 6px;
-            text-align: center;
-        }
-
-        .funnel-stage span {
-            font-size: 9px;
-            color: var(--text-muted);
-            display: block;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-
-        .funnel-stage p {
-            font-size: 16px;
-            font-weight: 700;
-            font-family: monospace;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: 600;
-        }
-        .badge-red    { background: rgba(226,75,74,0.15);   color: #f08080; }
-        .badge-yellow { background: rgba(239,159,39,0.15);  color: #f0b060; }
-        .badge-green  { background: rgba(29,158,117,0.15);  color: #5dcaa5; }
-        .badge-blue   { background: rgba(55,138,221,0.15);  color: #85b7eb; }
-        .badge-gray   { background: rgba(136,135,128,0.2);  color: #aaa;    }
-
-        /* COMPONENTE HISTÓRICO VISUAL DAS COLUNAS (INSTAGRAM) */
+        /* COMPONENTE HISTÓRICO VISUAL DAS COLUNAS */
         .month-compare-grid {
             display: flex;
             justify-content: space-between;
@@ -298,6 +262,10 @@
             position: relative;
         }
 
+        .month-bar-fill-1 { background-color: var(--purple-accent); }
+        .month-bar-fill-2 { background-color: var(--pink-accent); }
+        .month-bar-fill-3 { background-color: var(--blue-accent); }
+
         .month-name {
             font-size: 11px;
             color: var(--text-main);
@@ -320,10 +288,22 @@
             font-weight: 600;
         }
 
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        .badge-red    { background: rgba(226,75,74,0.15);   color: #f08080; }
+        .badge-yellow { background: rgba(239,159,39,0.15);  color: #f0b060; }
+        .badge-green  { background: rgba(29,158,117,0.15);  color: #5dcaa5; }
+        .badge-blue   { background: rgba(55,138,221,0.15);  color: #85b7eb; }
+        .badge-gray   { background: rgba(136,135,128,0.2);  color: #aaa;    }
+
         @media (max-width: 850px) {
-            .grid-4, .grid-2, .funnel {
+            .grid-4, .grid-3, .grid-2 {
                 grid-template-columns: 1fr;
-                flex-direction: column;
             }
         }
     </style>
@@ -334,108 +314,10 @@
         
         <div class="page-header">
             <div class="header-title">
-                <h1>Painel Comercial Omnichannel &amp; Performance</h1>
-                <p>Relatório de Consolidação Analítica Semanal/Mensal — Visão Geral 2026</p>
+                <h1>Painel Omnichannel de Performance Unificada</h1>
+                <p>Relatório de Consolidação Analítica Semanal/Mensal — Total Integrado de Dados 2026</p>
             </div>
-            <span class="badge-live">HISTÓRICO INTEGRADO COMPLETO</span>
-        </div>
-
-        <div class="section-title">📊 Matriz de Desempenho Histórico Comparativo Mês a Mês (2026)</div>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Métrica Analisada</th>
-                        <th>Janeiro / 2026</th>
-                        <th>Fevereiro / 2026</th>
-                        <th>Março / 2026</th>
-                        <th>Abril / 2026</th>
-                        <th>Maio / 2026</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Sessões Google Analytics (Acessos)</td>
-                        <td class="highlight-cell">2.104</td>
-                        <td class="highlight-cell">3.037</td>
-                        <td class="highlight-cell">4.582</td>
-                        <td class="highlight-cell">1.538</td>
-                        <td class="highlight-cell" style="color: var(--blue-accent);">4.772</td>
-                    </tr>
-                    <tr>
-                        <td>Duração Média da Sessão (GA4)</td>
-                        <td>120s</td>
-                        <td>145s</td>
-                        <td>182s</td>
-                        <td>103s</td>
-                        <td style="color: var(--amber-accent);">103s</td>
-                    </tr>
-                    <tr>
-                        <td>Visualizações / Impressões Instagram</td>
-                        <td>143,8 mil</td>
-                        <td>43,2 mil</td>
-                        <td>58,9 mil</td>
-                        <td>39,8 mil</td>
-                        <td class="highlight-cell" style="color: var(--pink-accent);">57,1 mil</td>
-                    </tr>
-                    <tr>
-                        <td>Alcance de Contas Únicas (Meta)</td>
-                        <td>40,4 mil</td>
-                        <td>16,8 mil</td>
-                        <td>20,8 mil</td>
-                        <td>12,3 mil</td>
-                        <td class="highlight-cell" style="color: var(--purple-accent);">25,5 mil</td>
-                    </tr>
-                    <tr>
-                        <td>Interações com Conteúdos (Engajamento)</td>
-                        <td>604</td>
-                        <td>338</td>
-                        <td>378</td>
-                        <td>235</td>
-                        <td class="highlight-cell">383</td>
-                    </tr>
-                    <tr>
-                        <td>Cliques em Ligações no Perfil</td>
-                        <td>3,1 mil</td>
-                        <td>768</td>
-                        <td>1,3 mil</td>
-                        <td>781</td>
-                        <td class="highlight-cell" style="color: var(--emerald-accent);">2,4 mil</td>
-                    </tr>
-                    <tr>
-                        <td>Visitas ao Perfil do Instagram</td>
-                        <td>688</td>
-                        <td>296</td>
-                        <td>735</td>
-                        <td>322</td>
-                        <td>632</td>
-                    </tr>
-                    <tr>
-                        <td>Novos Seguidores Adquiridos</td>
-                        <td>67</td>
-                        <td>35</td>
-                        <td>81</td>
-                        <td>49</td>
-                        <td class="highlight-cell text-purple">69</td>
-                    </tr>
-                    <tr>
-                        <td>Contatos por Mensagem (Direct)</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td style="color: var(--red-accent);">4 (↓ -42,9%)</td>
-                    </tr>
-                    <tr>
-                        <td>Seguidores Totais na Conta</td>
-                        <td>1.488</td>
-                        <td>1.488</td>
-                        <td>1.488</td>
-                        <td>1.488</td>
-                        <td class="highlight-cell">1.490</td>
-                    </tr>
-                </tbody>
-            </table>
+            <span class="badge-live">MAIO 2026 CONSOLIDADO</span>
         </div>
 
         <div class="section-title">🛒 Faturamento Consolidado &amp; Volume Geral</div>
@@ -462,43 +344,124 @@
             </div>
         </div>
 
-        <div class="section-title">💻 Performance da Loja Virtual (Tray E-commerce)</div>
-        <div class="grid-4">
-            <div class="card">
-                <p class="card-title">Faturamento Loja</p>
-                <p class="kpi-value" style="color: var(--amber-accent);">R$ 760,40</p>
-                <div class="kpi-sub down">↓ -85,00% (-R$ 4.663,40)</div>
-            </div>
-            <div class="card">
-                <p class="card-title">Pedidos Confirmados</p>
-                <p class="kpi-value">2 pedidos</p>
-                <div class="kpi-sub down">↓ -33,33% (vs mês anterior)</div>
-            </div>
-            <div class="card">
-                <p class="card-title">Visitas Identificadas</p>
-                <p class="kpi-value" style="color: var(--purple-accent);">4.254</p>
-                <div class="kpi-sub up">↑ +266,72% de tráfego</div>
-            </div>
-            <div class="card">
-                <p class="card-title">Taxa de Conversão</p>
-                <p class="kpi-value">0,07%</p>
-                <div class="kpi-sub down">↓ -58,82% de eficiência</div>
-            </div>
+        <div class="section-title">📊 Matriz de Tráfego e Comportamento do Site (Google Analytics por Mês)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Métrica do Google Analytics</th>
+                        <th>Março / 2026</th>
+                        <th>Abril / 2026</th>
+                        <th>Maio / 2026</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sessões Totais (Acessos ao site)</td>
+                        <td class="highlight-cell">4.582</td>
+                        <td class="highlight-cell">1.538</td>
+                        <td class="highlight-cell" style="color: var(--blue-accent);">4.772</td>
+                    </tr>
+                    <tr>
+                        <td>Duração Média da Sessão (Retenção)</td>
+                        <td class="highlight-cell">182s</td>
+                        <td class="highlight-cell">103s</td>
+                        <td class="highlight-cell" style="color: var(--amber-accent);">103s</td>
+                    </tr>
+                    <tr>
+                        <td>Acessos por Dispositivo Mobile</td>
+                        <td>86,93% (3.983 sessões)</td>
+                        <td>80,17% (1.233 sessões)</td>
+                        <td class="highlight-cell text-blue">72,72% (3.470 sessões)</td>
+                    </tr>
+                    <tr>
+                        <td>Acessos por Dispositivo Desktop</td>
+                        <td>12,44% (570 sessões)</td>
+                        <td>19,70% (303 sessões)</td>
+                        <td class="highlight-cell text-blue">26,84% (1.281 sessões)</td>
+                    </tr>
+                    <tr>
+                        <td>Acessos por Dispositivo Tablet</td>
+                        <td>0,63% (29 sessões)</td>
+                        <td>0,13% (2 sessões)</td>
+                        <td class="highlight-cell">0,44% (21 sessões)</td>
+                    </tr>
+                    <tr>
+                        <td>Sessões com Origem no Brasil (País Top 1)</td>
+                        <td>4.281 sessões</td>
+                        <td>1.410 sessões</td>
+                        <td class="highlight-cell text-green">4.116 sessões</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <div class="section-title">📡 Geração de Leads e Funil de Vendas (RD Station)</div>
-        <div class="card">
-            <p class="card-title">Etapas Estratégicas do Funil Comercial</p>
-            <div class="funnel">
-                <div class="funnel-stage"><span>Visitantes</span><p>3.537</p><small class="up">↑ +23,93%</small></div>
-                <div class="funnel-stage"><span style="color: var(--blue-accent);">Leads</span><p style="color: var(--blue-accent);">23</p><small class="down">↓ -99,95%</small></div>
-                <div class="funnel-stage"><span>Leads Qualificados</span><p style="color: #444;">-</p><small class="neutral">0,00%</small></div>
-                <div class="funnel-stage"><span style="color: var(--amber-accent);">Oportunidades</span><p style="color: var(--amber-accent);">3</p><small class="down">↓ -85,00%</small></div>
-                <div class="funnel-stage"><span style="color: var(--emerald-accent);">Vendas</span><p style="color: var(--emerald-accent);">3</p><small class="down">↓ -78,57%</small></div>
-            </div>
+        <div class="section-title">📱 Matriz de Performance de Redes Sociais (Instagram Insights por Mês)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Métrica Extraída do Instagram</th>
+                        <th>Janeiro / 2026</th>
+                        <th>Fevereiro / 2026</th>
+                        <th>Março / 2026</th>
+                        <th>Abril / 2026</th>
+                        <th>Maio / 2026</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Visualizações / Impressões Totais</td>
+                        <td class="highlight-cell">143,8 mil</td>
+                        <td class="highlight-cell">43,2 mil</td>
+                        <td class="highlight-cell">58,9 mil</td>
+                        <td class="highlight-cell">39,8 mil</td>
+                        <td class="highlight-cell" style="color: var(--pink-accent);">57,1 mil</td>
+                    </tr>
+                    <tr>
+                        <td>Alcance Líquido de Contas Únicas</td>
+                        <td>40,4 mil</td>
+                        <td>16,8 mil</td>
+                        <td>20,8 mil</td>
+                        <td>12,3 mil</td>
+                        <td class="highlight-cell" style="color: var(--purple-accent);">25,5 mil</td>
+                    </tr>
+                    <tr>
+                        <td>Interações Totais com Conteúdos</td>
+                        <td>604 (↑ +34,8%)</td>
+                        <td>338 (↓ -36,5%)</td>
+                        <td>378 (↓ -0,5%)</td>
+                        <td>235 (↓ -36,8%)</td>
+                        <td class="highlight-cell text-green">383 (↑ +60,3%)</td>
+                    </tr>
+                    <tr>
+                        <td>Cliques em Botões de Ligação</td>
+                        <td>3,1 mil (↑ +63,8%)</td>
+                        <td>768 (↓ -72,6%)</td>
+                        <td>1,3 mil (↑ +31%)</td>
+                        <td>781 (↓ -36,8%)</td>
+                        <td class="highlight-cell" style="color: var(--emerald-accent);">2,4 mil (↑ +213,1%)</td>
+                    </tr>
+                    <tr>
+                        <td>Visitas ao Perfil do Instagram</td>
+                        <td>688 (↑ +55,7%)</td>
+                        <td>296 (↓ -53,8%)</td>
+                        <td>735 (↑ +105,9%)</td>
+                        <td>322 (↓ -55,5%)</td>
+                        <td class="highlight-cell">632 (↑ +93,3%)</td>
+                    </tr>
+                    <tr>
+                        <td>Novos Seguidores Conquistados</td>
+                        <td>67 (↑ +39,6%)</td>
+                        <td>35 (↓ -39,7%)</td>
+                        <td>81 (↑ +92,9%)</td>
+                        <td>49 (↓ -39,5%)</td>
+                        <td class="highlight-cell text-purple">69 (↑ +38%)</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <div class="section-title">📊 Visualização Espacial de Gráficos (Instagram / Meta Insights)</div>
         <div class="grid-2">
             <div class="card">
                 <p class="card-title">Evolução de Visualizações / Impressões (Jan a Mai)</p>
@@ -522,27 +485,35 @@
             </div>
         </div>
 
-        <div class="grid-2">
+        <div class="section-title">👥 Formatos de Conteúdo &amp; Detalhes Demográficos (Instagram)</div>
+        <div class="grid-3">
             <div class="card">
-                <p class="card-title">Conversões Reais por Pontos de Captura</p>
+                <p class="card-title">Principais Formatos Publicados (Maio)</p>
                 <div class="bar-list">
-                    <div class="bar-item"><span class="bar-label">Pop-up de Saída / Rolagem (Site)</span><div class="bar-track"><div class="bar-fill" style="width: 100%; background-color: var(--emerald-accent);"></div></div><span class="bar-value-text">22 conv.</span></div>
-                    <div class="bar-item"><span class="bar-label">Botão Flutuante do WhatsApp</span><div class="bar-track"><div class="bar-fill" style="width: 68%; background-color: var(--emerald-accent);"></div></div><span class="bar-value-text">15 conv.</span></div>
-                    <div class="bar-item"><span class="bar-label">Formulário de Contato Direto</span><div class="bar-track"><div class="bar-fill" style="width: 18%; background-color: var(--red-accent);"></div></div><span class="bar-value-text">4 conv.</span></div>
-                    <div class="bar-item"><span class="bar-label">Landing Pages / Captação LP</span><div class="bar-track"><div class="bar-fill" style="width: 0%; background-color: #444;"></div></div><span class="bar-value-text">0 conv.</span></div>
+                    <div class="bar-item"><span class="bar-label">Histórias (Stories)</span><div class="bar-track"><div class="bar-fill" style="width: 100%; background-color: var(--blue-accent);"></div></div><span class="bar-value-text">22 mídias</span></div>
+                    <div class="bar-item"><span class="bar-label">Publicações normais (Feed)</span><div class="bar-track"><div class="bar-fill" style="width: 68%; background-color: var(--blue-accent);"></div></div><span class="bar-value-text">15 mídias</span></div>
                 </div>
+                <p class="card-sub" style="margin-top: 15px;">• Total de Interações por Formato: <strong class="text-white">Reels (110)</strong> · <strong class="text-white">Fotos normais (85)</strong></p>
             </div>
             <div class="card">
-                <p class="card-title">Fontes de Atração dos Novos Leads (RD)</p>
+                <p class="card-title">Segmentação por Idade &amp; Gênero</p>
                 <div class="bar-list">
-                    <div class="bar-item"><span class="bar-label">Tráfego Direto (Acesso Direto)</span><div class="bar-track"><div class="bar-fill" style="width: 100%; background-color: var(--blue-accent);"></div></div><span class="bar-value-text">14 Leads</span></div>
-                    <div class="bar-item"><span class="bar-label">Mídia Paga (Meta Ads)</span><div class="bar-track"><div class="bar-fill" style="width: 28%; background-color: var(--blue-accent);"></div></div><span class="bar-value-text">4 Leads</span></div>
-                    <div class="bar-item"><span class="bar-label">Redes Sociais (Instagram Orgânico)</span><div class="bar-track"><div class="bar-fill" style="width: 21%; background-color: var(--blue-accent);"></div></div><span class="bar-value-text">3 Leads</span></div>
-                    <div class="bar-item"><span class="bar-label">Busca Orgânica (Google SEO)</span><div class="bar-track"><div class="bar-fill" style="width: 14%; background-color: var(--blue-accent);"></div></div><span class="bar-value-text">2 Leads</span></div>
+                    <div class="bar-item"><span class="bar-label">Feminino (Mulheres)</span><div class="bar-track"><div class="bar-fill" style="width: 74%; background-color: var(--pink-accent);"></div></div><span class="bar-value-text">74,7%</span></div>
+                    <div class="bar-item"><span class="bar-label">Masculino (Homens)</span><div class="bar-track"><div class="bar-fill" style="width: 25%; background-color: var(--blue-accent);"></div></div><span class="bar-value-text">25,3%</span></div>
+                </div>
+                <p class="card-sub" style="margin-top: 15px;">• Faixa etária líder absoluta: <strong class="text-white">45-54 anos</strong> (seguida por 35-44 anos).</p>
+            </div>
+            <div class="card">
+                <p class="card-title">Localização do Público Ativo</p>
+                <div class="bar-list">
+                    <div class="bar-item"><span class="bar-label">Belo Horizonte, MG</span><div class="bar-track"><div class="bar-fill" style="width: 100%; background-color: var(--emerald-accent);"></div></div><span class="bar-value-text">9,1%</span></div>
+                    <div class="bar-item"><span class="bar-label">São Paulo, SP</span><div class="bar-track"><div class="bar-fill" style="width: 75%; background-color: var(--emerald-accent);"></div></div><span class="bar-value-text">6,9%</span></div>
+                    <div class="bar-item"><span class="bar-label">Itabira, MG</span><div class="bar-track"><div class="bar-fill" style="width: 33%; background-color: var(--emerald-accent);"></div></div><span class="bar-value-text">3,0%</span></div>
                 </div>
             </div>
         </div>
 
+        <div class="section-title">🛒 Detalhamento de Peças e buscas da Loja</div>
         <div class="grid-2">
             <div class="card">
                 <p class="card-title">Páginas de Produtos Mais Vistas (GA4)</p>
@@ -564,27 +535,29 @@
             </div>
         </div>
 
-        <div class="section-title">📧 Campanhas de E-mail Marketing Ativas (Maio)</div>
-        <div class="card">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nome do Disparo / Campanha</th>
-                        <th>Data Envio</th>
-                        <th>Volume Entregue</th>
-                        <th>Taxa de Abertura</th>
-                        <th>Cliques Únicos (CTOR)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td style="color: var(--blue-accent); font-weight: 600;">Inverno Coleção BiiO</td><td>29/05/2026</td><td style="font-family: monospace;">5.104</td><td style="font-family: monospace;">12,27%</td><td class="up" style="font-family: monospace;">0,18%</td></tr>
-                    <tr><td style="color: var(--blue-accent); font-weight: 600;">Adeus, jalecos sem graça</td><td>22/05/2026</td><td style="font-family: monospace;">5.177</td><td style="font-family: monospace;">13,29%</td><td class="up" style="font-family: monospace;">0,55%</td></tr>
-                    <tr><td style="color: var(--blue-accent); font-weight: 600;">BiiO Corporate</td><td>14/05/2026</td><td style="font-family: monospace;">5.255</td><td style="font-family: monospace;">12,40%</td><td class="up" style="font-family: monospace;">0,65%</td></tr>
-                </tbody>
-            </table>
+        <div class="section-title">📡 Pontos de Conversão e Entrada de Leads (RD Station)</div>
+        <div class="grid-2">
+            <div class="card">
+                <p class="card-title">Conversões Reais por Pontos de Captura</p>
+                <div class="bar-list">
+                    <div class="bar-item"><span class="bar-label">Pop-up de Saída / Rolagem (Site)</span><div class="bar-track"><div class="bar-fill" style="width: 100%; background-color: var(--emerald-accent);"></div></div><span class="bar-value-text">22 conv.</span></div>
+                    <div class="bar-item"><span class="bar-label">Botão Flutuante do WhatsApp</span><div class="bar-track"><div class="bar-fill" style="width: 68%; background-color: var(--emerald-accent);"></div></div><span class="bar-value-text">15 conv.</span></div>
+                    <div class="bar-item"><span class="bar-label">Formulário de Contato Direto</span><div class="bar-track"><div class="bar-fill" style="width: 18%; background-color: var(--red-accent);"></div></div><span class="bar-value-text">4 conv.</span></div>
+                    <div class="bar-item"><span class="bar-label">Landing Pages / Captação LP</span><div class="bar-track"><div class="bar-fill" style="width: 0%; background-color: #444;"></div></div><span class="bar-value-text">0 conv.</span></div>
+                </div>
+            </div>
+            <div class="card">
+                <p class="card-title">Fontes de Atração dos Novos Leads (RD)</p>
+                <div class="bar-list">
+                    <div class="bar-item"><span class="bar-label">Tráfego Direto (Acesso Direto)</span><div class="bar-track"><div class="bar-fill" style="width: 100%; background-color: var(--blue-accent);"></div></div><span class="bar-value-text">14 Leads</span></div>
+                    <div class="bar-item"><span class="bar-label">Mídia Paga (Meta Ads)</span><div class="bar-track"><div class="bar-fill" style="width: 28%; background-color: var(--blue-accent);"></div></div><span class="bar-value-text">4 Leads</span></div>
+                    <div class="bar-item"><span class="bar-label">Redes Sociais (Instagram Orgânico)</span><div class="bar-track"><div class="bar-fill" style="width: 21%; background-color: var(--blue-accent);"></div></div><span class="bar-value-text">3 Leads</span></div>
+                    <div class="bar-item"><span class="bar-label">Busca Orgânica (Google SEO)</span><div class="bar-track"><div class="bar-fill" style="width: 14%; background-color: var(--blue-accent);"></div></div><span class="bar-value-text">2 Leads</span></div>
+                </div>
+            </div>
         </div>
 
-        <div class="section-title">🚨 Matriz de Alertas, Insights e Ações Sugeridas</div>
+        <div class="section-title">🚨 Alertas, Insights e Ações Sugeridas</div>
         <div class="card">
             <table>
                 <thead>
