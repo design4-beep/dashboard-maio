@@ -1,364 +1,534 @@
-Aqui está o código completo do dashboard atualizado. Consolidei todos os dados anteriores e acrescentei os novos dados enviados nos novos prints (referentes às métricas detalhadas de **Origem de Tráfego do Google Analytics por mês** de Janeiro a Maio), criando gráficos comparativos estruturados mês a mês.
-
-Os novos dados de tráfego inseridos para análise comparativa foram:
-
-* **Janeiro:** Direct (1.002) · Organic Search (615) · Paid Search (368) · Social (74)
-* **Fevereiro:** Direct (1.026) · Paid Search (1.003) · Organic Search (642) · Social (315)
-* **Março:** Direct (1.810) · Organic Search (1.637) · Paid Search (1.018) · Social (81)
-* **Abril:** Organic Search (578) · Direct (543) · Paid Search (332) · Social (61)
-* **Maio:** Paid Search (1.986) · Direct (1.859) · Organic Search (797) · Social (92)
-
-Substitua todo o conteúdo do seu arquivo `index.html` por esta versão:
-
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard de Marketing — Maio 2026</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Performance Omnichannel — 2026</title>
+    <style>
+        /* CSS NATIVO PERSONALIZADO — CORES OFICIAIS DO NOTION DARK */
+        :root {
+            --bg-notion: #191919;
+            --bg-card: #202020;
+            --bg-hover: #262626;
+            --border-color: #2a2a2a;
+            --text-main: #FFFFFFDE;
+            --text-muted: #888888;
+            --blue-accent: #378ADD;
+            --emerald-accent: #1D9E75;
+            --pink-accent: #D4537E;
+            --amber-accent: #EF9F27;
+            --red-accent: #E24B4A;
+            --purple-accent: #7F77DD;
+        }
 
-<script>
-/* ============================================================
-   ✏️  DADOS DO DASHBOARD (MANTIDOS E ATUALIZADOS COM OS NOVOS)
-   ============================================================ */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-const DADOS = {
-  periodo: "Maio/2026 (mês completo)",
-  atualizadoEm: "31/05/2026",
+        body {
+            background-color: var(--bg-notion);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            line-height: 1.5;
+            padding: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-  /* 🛒 E-commerce — Tray */
-  ecommerce: {
-    receita:           { valor: "R$ 760,40",   delta: "↓ -85,98% vs abril/26",  tipo: "down" },
-    vendas:            { valor: "2",           delta: "↓ -33,33% vs abril/26",  tipo: "down" },
-    visitas:           { valor: "4.254",       delta: "↑ +53,41% vs abril/26",  tipo: "up"   },
-    conversao:         { valor: "0,07%",       delta: "↓ -36,36% vs abril/26",  tipo: "down" },
+        /* CABEÇALHO */
+        .page-header {
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    maisVendidos: [
-      { nome: "Jaleco Masculino Prime Clássico",  pct: 100, val: "1 · R$ 377,50", cor: "blue"   },
-      { nome: "Jaleco Feminino Prime Clássico",   pct: 91,  val: "1 · R$ 344,50", cor: "pink"   },
-      { nome: "Outras Peças Corporativas (B2B)",  pct: 50,  val: "Vendas Diretas", cor: "purple" },
-    ],
+        .page-header h1 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
 
-    statusPedidos: [
-      { nome: "Pedidos Confirmados (Tray)",       badge: "green",  texto: "2 pedidos" },
-      { nome: "Faturamento Global Conciliado",   badge: "blue",   texto: "R$ 51.520,00" },
-      { nome: "Faturamento Bruto de Peças",      badge: "orange", texto: "R$ 5.138,50" },
-      { nome: "Lista de Pedidos Ativos",         badge: "gray",   texto: "4 Ativos" },
-    ],
-    statusRodape: "Ticket Médio Omnichannel: R$ 1.215,34 · 67 Pedidos Totais no Mês",
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 12px;
+            margin-top: 4px;
+        }
 
-    maisVistos: [
-      { nome: "Camisa Scrub Feminina Harmonia",    pct: 100, val: "198", cor: "pink"   },
-      { nome: "Camisa Scrub Masculino Bem-Estar",  pct: 69,  val: "137", cor: "blue"   },
-      { nome: "Camisa Scrub Feminino Bem-Estar",   pct: 63,  val: "125", cor: "pink"   },
-      { nome: "Calça Scrub Feminina Conforto Flex", pct: 56,  val: "112", cor: "green"  },
-    ],
+        .badge-live {
+            background-color: rgba(29, 158, 117, 0.15);
+            color: #5dcaa5;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-family: monospace;
+            border: 1px solid rgba(29, 158, 117, 0.3);
+        }
 
-    buscas: [
-      { nome: "masculino camisa essencial button down manga longa b2b", pct: 100, val: "8,08%" },
-      { nome: "8008 (Código de busca interna)",                          pct: 87,  val: "7,07%" },
-      { nome: "masculino camiseta empatia manga longa ecotton b2b",      pct: 87,  val: "7,07%" },
-      { nome: "80209 (Código de busca interna)",                         pct: 75,  val: "6,06%" },
-    ],
-  },
+        .section-title {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin: 32px 0 14px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-  /* 📧 E-mail Marketing */
-  email: {
-    campanhasAbril: [
-      { nome: "Inverno Coleção BiiO",     data: "29/05", enviados: 5104, entrega: "99,00%", abertura: "12,27%", cliques: "0,18%", bounces: 17,  status: "ok" },
-      { nome: "Adeus, jalecos sem graça", data: "22/05", enviados: 5177, entrega: "99,00%", abertura: "13,29%", cliques: "0,55%", bounces: 44,  status: "ok" },
-      { nome: "BiiO Corporate",           data: "14/05", enviados: 5255, entrega: "99,00%", abertura: "12,40%", cliques: "0,65%", bounces: 39,  status: "ok" },
-    ],
-  },
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: var(--border-color);
+        }
 
-  /* 📡 RD Station — Leads */
-  rd: {
-    leadsPopup:      { valor: "22",  delta: "↑ +2100% vs abril/26", tipo: "up" },
-    leadsWhatsapp:   { valor: "15",  delta: "↑ +36,36% vs abril/26", tipo: "up" },
+        /* GRIDS COMPATÍVEIS COM O NOTION */
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+        }
 
-    leadsHistorico: {
-      labels: ['Jan','Fev','Mar','Abr','Mai'],
-      popup:      [4, 2, 12, 1, 22],
-      whatsapp:   [9, 6, 5, 11, 15],
-    },
-    
-    fontesLeads: [
-      { nome: "Tráfego Direto (Acesso Direto)",           pct: 100, val: "14" },
-      { nome: "Mídia Paga (Meta Ads / Instagram Ads)",    pct: 28,  val: "4"  },
-      { nome: "Redes Sociais (Instagram Orgânico)",       pct: 21,  val: "3"  },
-      { nome: "Busca Orgânica (Google SEO)",              pct: 14,  val: "2"  },
-    ]
-  },
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
+            gap: 12px;
+        }
 
-  /* 📊 PERFORMANCE HISTÓRICA COMPLETA & COMPARATIVA */
-  historico: {
-    labels:   ['Jan/26','Fev/26','Mar/26','Abr/26','Mai/26'],
-    visitasGa: [2104, 3037, 4582, 1538, 4772], 
-    duracaoGa: [120, 145, 182, 103, 103],       
-    instaVisu: [143.8, 43.2, 58.9, 39.8, 57.1], 
-    instaAlca: [40.4, 16.8, 20.8, 12.3, 25.5],  
-    
-    /* 🚀 NOVOS DADOS: Canais GA detalhados por mês para o comparativo */
-    canaisPorMes: {
-      direct:        [1002, 1026, 1810, 543, 1859],
-      organicSearch: [615, 642, 1637, 578, 797],
-      paidSearch:    [368, 1003, 1018, 332, 1986],
-      social:        [74, 315, 81, 61, 92]
-    }
-  },
+        /* CARDS */
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+        }
 
-  /* 🚨 Alertas e Insights */
-  alertas: [
-    { situacao: "Mídia Paga (Paid Search) se tornou a maior fonte de acessos em Maio (1.986)", prioridade: "Estratégico",  badge: "blue",   acao: "Manter o impulsionamento focado em conversão direta" },
-    { situacao: "Faturamento Omnichannel atingiu recorde de R$ 51.520,00",          prioridade: "Sucesso",     badge: "green",  acao: "Manter a estratégia de canais integrados de venda" },
-    { situacao: "Captação disparou: 22 leads por Pop-up e 15 por WhatsApp",        prioridade: "Excelente",   badge: "green",  acao: "Otimizar fluxos de nutrição de e-mail para esses leads" },
-    { situacao: "Visitas no Instagram subiram +93,3% (632) e interações +60,3% (383)", prioridade: "Positivo",    badge: "green",  acao: "Impulsionar formatos de Reels (lidera engajamento com 110)" },
-    { situacao: "Receita direta na loja virtual caiu para R$ 760,40 (-85%)",       prioridade: "Crítico",     badge: "red",    acao: "Revisar fricção no checkout e ofertas exclusivas do site" },
-  ],
-};
-</script>
+        .card-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
 
-<style>
-  :root {
-    --bg: #191919; --bg2: #222222; --bg3: #2a2a2a;
-    --border: rgba(255,255,255,0.08); --text: #e8e8e6;
-    --muted: #888; --faint: #555;
-    --green: #1D9E75; --pink: #D4537E; --purple: #7F77DD;
-    --blue: #378ADD; --amber: #EF9F27; --red: #E24B4A;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: 'Inter', -apple-system, system-ui, sans-serif; font-size: 13px; padding: 24px; max-width: 1200px; margin: 0 auto; }
-  .page-header { margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
-  .page-header h1 { font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 4px; }
-  .page-header p { color: var(--muted); font-size: 12px; }
-  .section-title { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin: 28px 0 12px; display: flex; align-items: center; gap: 8px; }
-  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-  .kpi-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  @media(max-width:768px) {
-    .kpi-grid, .kpi-grid-2, .two-col { grid-template-columns: 1fr !important; }
-  }
-  .kpi { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
-  .kpi .label { font-size: 11px; color: var(--muted); margin-bottom: 5px; }
-  .kpi .value { font-size: 24px; font-weight: 600; color: #fff; line-height: 1; }
-  .kpi .delta { font-size: 11px; margin-top: 5px; }
-  .up { color: var(--green); } .down { color: var(--red); }
-  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
-  .card-title { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 12px; color: var(--muted); }
-  .bar-row .lbl { flex: 0 0 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .bar-track { flex: 1; height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; }
-  .bar-fill { height: 100%; border-radius: 2px; }
-  .bar-val { flex: 0 0 70px; text-align: right; color: #fff; font-weight: 500; }
-  table { width: 100%; border-collapse: collapse; font-size: 12px; }
-  th { font-size: 10px; font-weight: 600; color: var(--faint); text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); letter-spacing: 0.06em; text-transform: uppercase; }
-  td { padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text); }
-  .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: 600; }
-  .badge-red    { background: rgba(226,75,74,0.15);   color: #f08080; }
-  .badge-yellow { background: rgba(239,159,39,0.15);  color: #f0b060; }
-  .badge-green  { background: rgba(29,158,117,0.15);  color: #5dcaa5; }
-  .badge-blue   { background: rgba(55,138,221,0.15);  color: #85b7eb; }
-  .badge-gray   { background: rgba(136,135,128,0.2);  color: #aaa;    }
-  .badge-orange { background: rgba(239,100,39,0.2);   color: #f09060; }
-  .stat-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 12px; }
-  .chart-wrap { position: relative; width: 100%; height: 200px; }
-  .chart-wrap-lg { position: relative; width: 100%; height: 280px; }
-  footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 11px; color: var(--faint); text-align: center; }
-</style>
+        .kpi-value {
+            font-size: 26px;
+            font-weight: 600;
+            color: #fff;
+            font-family: monospace;
+            line-height: 1.1;
+        }
+
+        .kpi-sub {
+            font-size: 11px;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* METRICAS DE CORES */
+        .up { color: var(--emerald-accent); }
+        .down { color: var(--red-accent); }
+        .neutral { color: var(--text-muted); }
+
+        /* TABELAS COMPATÍVEIS */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        th {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 10px 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* RECURSOS GRÁFICOS EM CSS PURO */
+        .bar-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .bar-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+        }
+
+        .bar-label {
+            flex: 0 0 160px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .bar-track {
+            flex: 1;
+            height: 6px;
+            background-color: #2a2a2a;
+            border-radius: 3px;
+            margin: 0 12px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 3px;
+        }
+
+        .bar-value-text {
+            flex: 0 0 80px;
+            text-align: right;
+            font-family: monospace;
+            font-weight: 600;
+        }
+
+        /* FUNIL DE VENDAS RD */
+        .funnel {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .funnel-stage {
+            flex: 1;
+            background-color: var(--bg-notion);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 12px 6px;
+            text-align: center;
+        }
+
+        .funnel-stage span {
+            font-size: 9px;
+            color: var(--text-muted);
+            display: block;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .funnel-stage p {
+            font-size: 16px;
+            font-weight: 700;
+            font-family: monospace;
+        }
+
+        /* COMPONENTE DE HISTÓRICO MÊS A MÊS */
+        .month-compare-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            align-items: flex-end;
+            height: 165px;
+            padding-top: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .month-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            height: 100%;
+            position: relative;
+        }
+
+        .month-bar {
+            width: 100%;
+            max-width: 32px;
+            border-radius: 4px 4px 0 0;
+            position: relative;
+        }
+
+        .month-bar-fill-1 { background-color: var(--purple-accent); }
+        .month-bar-fill-2 { background-color: var(--pink-accent); }
+        .month-bar-fill-3 { background-color: var(--blue-accent); }
+
+        .month-name {
+            font-size: 11px;
+            color: var(--text-main);
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: 500;
+        }
+
+        .month-tooltip {
+            position: absolute;
+            top: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            background-color: #000;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: nowrap;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .grid-4, .grid-2, .funnel {
+                grid-template-columns: 1fr;
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<div id="app"></div>
+    <div class="container">
+        
+        <div class="page-header">
+            <div class="header-title">
+                <h1>Painel Omnichannel de Marketing &amp; Vendas</h1>
+                <p>Base Consolidada de Relatórios Unificados — Visão Anual 2026</p>
+            </div>
+            <span class="badge-live">CONSOLIDADO HISTÓRICO</span>
+        </div>
 
-<script>
-const COR = { purple: 'var(--purple)', pink: 'var(--pink)', blue: 'var(--blue)', green: 'var(--green)', amber: 'var(--amber)' };
+        <div class="section-title">🛒 Consolidação Geral de Vendas &amp; Faturamento</div>
+        <div class="grid-4">
+            <div class="card">
+                <p class="card-title">Faturamento Omnichannel</p>
+                <p class="kpi-value" style="color: var(--emerald-accent);">R$ 51.520,00</p>
+                <div class="kpi-sub neutral">Acumulado Geral de Receita</div>
+            </div>
+            <div class="card">
+                <p class="card-title">Volume de Peças (Valor Bruto)</p>
+                <p class="kpi-value">R$ 5.138,50</p>
+                <div class="kpi-sub neutral">Movimentação física de estoque</div>
+            </div>
+            <div class="card">
+                <p class="card-title">Pedidos Totais</p>
+                <p class="kpi-value text-blue">67 un.</p>
+                <div class="kpi-sub neutral">Transações validadas no mês</div>
+            </div>
+            <div class="card">
+                <p class="card-title">Ticket Médio Geral</p>
+                <p class="kpi-value">R$ 1.215,34</p>
+                <div class="kpi-sub neutral">Média de consumo por carteira</div>
+            </div>
+        </div>
 
-function kpi(label, obj) {
-  return `<div class="kpi"><div class="label">${label}</div><div class="value">${obj.valor}</div><div class="delta ${obj.tipo}">${obj.delta}</div></div>`;
-}
-function barRow(item) {
-  const cor = COR[item.cor] || 'var(--purple)';
-  return `<div class="bar-row"><span class="lbl">${item.nome}</span><div class="bar-track"><div class="bar-fill" style="width:${item.pct}%;background:${cor};"></div></div><span class="bar-val">${item.val}</span></div>`;
-}
+        <div class="section-title">💻 Canal de Venda Direta — Loja Virtual (Tray)</div>
+        <div class="grid-4">
+            <div class="card">
+                <p class="card-title">Receita Loja Virtual</p>
+                <p class="kpi-value" style="color: var(--amber-accent);">R$ 760,40</p>
+                <div class="kpi-sub down">↓ -85,98% (vs Período Anterior)</div>
+            </div>
+            <div class="card">
+                <p class="card-title">Pedidos Aprovados</p>
+                <p class="kpi-value">2 pedidos</p>
+                <div class="kpi-sub down">↓ -33,33% (vs Período Anterior)</div>
+            </div>
+            <div class="card">
+                <p class="card-title">Visitas na Loja</p>
+                <p class="kpi-value" style="color: var(--purple-accent);">4.254</p>
+                <div class="kpi-sub up">↑ +266,72% (vs Período Anterior)</div>
+            </div>
+            <div class="card">
+                <p class="card-title">Taxa de Conversão</p>
+                <p class="kpi-value">0,07%</p>
+                <div class="kpi-sub down">↓ -58,82% (vs Período Anterior)</div>
+            </div>
+        </div>
 
-const D = DADOS;
-const E = D.ecommerce, R = D.rd, H = D.historico;
+        <div class="section-title">📡 Funil de Captação e Conversão Comercial (RD Station)</div>
+        <div class="card">
+            <p class="card-title" style="margin-bottom: 16px;">Métricas Reais do Funil de Atração</p>
+            <div class="funnel">
+                <div class="funnel-stage">
+                    <span>Visitantes</span>
+                    <p style="color: #fff;">3.537</p>
+                    <small class="up" style="font-size: 10px;">↑ +23,93%</small>
+                </div>
+                <div class="funnel-stage">
+                    <span style="color: var(--blue-accent);">Leads</span>
+                    <p style="color: var(--blue-accent);">23</p>
+                    <small class="down" style="font-size: 10px;">↓ -99,95%</small>
+                </div>
+                <div class="funnel-stage">
+                    <span>Leads Qualificados</span>
+                    <p style="color: #444;">-</p>
+                    <small style="font-size: 10px; color: var(--text-muted);">0,00%</small>
+                </div>
+                <div class="funnel-stage">
+                    <span style="color: var(--amber-accent);">Oportunidades</span>
+                    <p style="color: var(--amber-accent);">3</p>
+                    <small class="down" style="font-size: 10px;">↓ -85,00%</small>
+                </div>
+                <div class="funnel-stage">
+                    <span style="color: var(--emerald-accent);">Vendas</span>
+                    <p style="color: var(--emerald-accent);">3</p>
+                    <small class="down" style="font-size: 10px;">↓ -78,57%</small>
+                </div>
+            </div>
+        </div>
 
-document.getElementById('app').innerHTML = `
-<div class="page-header">
-  <h1>📊 Dashboard de Marketing Omnichannel — Consolidado 2026</h1>
-  <p>Período Base: ${D.periodo} &nbsp;·&nbsp; Histórico Comparativo Atualizado</p>
-</div>
+        <div class="section-title">📊 Evolução Mensal do Tráfego do Site (Google Analytics)</div>
+        <div class="grid-2">
+            <div class="card">
+                <p class="card-title">Sessões Totais por Mês (Acessos Absolutos)</p>
+                <div class="month-compare-grid">
+                    <div class="month-column"><span class="month-name">Jan</span><div class="month-bar month-bar-fill-1" style="height: 66px;"><div class="month-tooltip">2.104</div></div></div>
+                    <div class="month-column"><span class="month-name">Fev</span><div class="month-bar month-bar-fill-1" style="height: 95px;"><div class="month-tooltip">3.037</div></div></div>
+                    <div class="month-column"><span class="month-name">Mar</span><div class="month-bar month-bar-fill-1" style="height: 144px;"><div class="month-tooltip">4.582</div></div></div>
+                    <div class="month-column"><span class="month-name">Abr</span><div class="month-bar month-bar-fill-1" style="height: 48px;"><div class="month-tooltip">1.538</div></div></div>
+                    <div class="month-column"><span class="month-name">Mai</span><div class="month-bar month-bar-fill-1" style="height: 150px; background-color: var(--blue-accent);"><div class="month-tooltip">4.772</div></div></div>
+                </div>
+            </div>
+            <div class="card">
+                <p class="card-title">Duração Média das Sessões (Segundos)</p>
+                <div class="month-compare-grid">
+                    <div class="month-column"><span class="month-name">Jan</span><div class="month-bar month-bar-fill-3" style="height: 98px;"><div class="month-tooltip">120s</div></div></div>
+                    <div class="month-column"><span class="month-name">Fev</span><div class="month-bar month-bar-fill-3" style="height: 119px;"><div class="month-tooltip">145s</div></div></div>
+                    <div class="month-column"><span class="month-name">Mar</span><div class="month-bar month-bar-fill-3" style="height: 150px;"><div class="month-tooltip">182s</div></div></div>
+                    <div class="month-column"><span class="month-name">Abr</span><div class="month-bar month-bar-fill-3" style="height: 85px;"><div class="month-tooltip">103s</div></div></div>
+                    <div class="month-column"><span class="month-name">Mai</span><div class="month-bar month-bar-fill-3" style="height: 85px; background-color: var(--amber-accent);"><div class="month-tooltip">103s</div></div></div>
+                </div>
+            </div>
+        </div>
 
-<div class="section-title">⚖️ Comparativo de Origens de Tráfego Mês a Mês (Google Analytics)</div>
-<div class="card" style="margin-bottom: 16px;">
-  <div class="card-title">Distribuição Mensal por Canal de Entrada (Sessões Absolutas)</div>
-  <div class="chart-wrap-lg"><canvas id="canaisComparativoChart"></canvas></div>
-</div>
+        <div class="section-title">📱 Histórico Comparativo do Instagram (Janeiro a Maio)</div>
+        <div class="grid-2">
+            <div class="card">
+                <p class="card-title">Evolução de Visualizações / Impressões (Milhares)</p>
+                <div class="month-compare-grid">
+                    <div class="month-column"><span class="month-name">Jan</span><div class="month-bar month-bar-fill-2" style="height: 150px;"><div class="month-tooltip">143,8k</div></div></div>
+                    <div class="month-column"><span class="month-name">Fev</span><div class="month-bar month-bar-fill-2" style="height: 45px;"><div class="month-tooltip">43,2k</div></div></div>
+                    <div class="month-column"><span class="month-name">Mar</span><div class="month-bar month-bar-fill-2" style="height: 61px;"><div class="month-tooltip">58,9k</div></div></div>
+                    <div class="month-column"><span class="month-name">Abr</span><div class="month-bar month-bar-fill-2" style="height: 41px;"><div class="month-tooltip">39,8k</div></div></div>
+                    <div class="month-column"><span class="month-name">Mai</span><div class="month-bar month-bar-fill-2" style="height: 59px; background-color: var(--emerald-accent);"><div class="month-tooltip">57,1k</div></div></div>
+                </div>
+            </div>
+            <div class="card">
+                <p class="card-title">Evolução de Alcance de Contas Únicas (Milhares)</p>
+                <div class="month-compare-grid">
+                    <div class="month-column"><span class="month-name">Jan</span><div class="month-bar month-bar-fill-3" style="height: 150px;"><div class="month-tooltip">40,4k</div></div></div>
+                    <div class="month-column"><span class="month-name">Fev</span><div class="month-bar month-bar-fill-3" style="height: 62px;"><div class="month-tooltip">16,8k</div></div></div>
+                    <div class="month-column"><span class="month-name">Mar</span><div class="month-bar month-bar-fill-3" style="height: 77px;"><div class="month-tooltip">20,8k</div></div></div>
+                    <div class="month-column"><span class="month-name">Abr</span><div class="month-bar month-bar-fill-3" style="height: 45px;"><div class="month-tooltip">12,3k</div></div></div>
+                    <div class="month-column"><span class="month-name">Mai</span><div class="month-bar month-bar-fill-3" style="height: 94px; background-color: var(--purple-accent);"><div class="month-tooltip">25,5k</div></div></div>
+                </div>
+            </div>
+        </div>
 
-<div class="section-title">🛒 E-commerce — Tray &amp; Visão Consolidada (Maio/2026)</div>
-<div class="kpi-grid">
-  ${kpi('Receita e-com', E.receita)}
-  ${kpi('Pedidos e-com', E.vendas)}
-  ${kpi('Visitas e-com', E.visitas)}
-  ${kpi('Conversão e-com', E.conversao)}
-</div>
+        <div class="grid-2" style="margin-top: 12px;">
+            <div class="card">
+                <p class="card-title">Métricas de Engajamento e Interações (Maio)</p>
+                <div class="bar-list">
+                    <div class="bar-item"><span class="bar-label">Cliques em Botão de Ligação</span><div class="bar-track"><div class="bar-fill" style="width: 100%; background-color: var(--blue-accent);"></div></div><span class="bar-value-text">2,4 mil</span></div>
+                    <div class="bar-item"><span class="bar-label">Visitas ao Perfil do Insta</span><div class="bar-track"><div class="bar-fill" style="width: 26%; background-color: var(--purple-accent);"></div></div><span class="bar-value-text">632</span></div>
+                    <div class="bar-item"><span class="bar-label">Interações com Conteúdos</span><div class="bar-track"><div class="bar-fill" style="width: 16%; background-color: var(--pink-accent);"></div></div><span class="bar-value-text">383</span></div>
+                    <div class="bar-item"><span class="bar-label">Novos Seguidores</span><div class="bar-track"><div class="bar-fill" style="width: 3%; background-color: var(--emerald-accent);"></div></div><span class="bar-value-text">69</span></div>
+                </div>
+            </div>
+            <div class="card">
+                <p class="card-title">Ponto de Captura de Leads — Conversões</p>
+                <div class="bar-list">
+                    <div class="bar-item"><span class="bar-label">Pop-up de Saída / Rolagem</span><div class="bar-track"><div class="bar-fill" style="width: 100%; background-color: var(--emerald-accent);"></div></div><span class="bar-value-text">22 conv.</span></div>
+                    <div class="bar-item"><span class="bar-label">Botão Flutuante do WhatsApp</span><div class="bar-track"><div class="bar-fill" style="width: 68%; background-color: var(--emerald-accent);"></div></div><span class="bar-value-text">15 conv.</span></div>
+                    <div class="bar-item"><span class="bar-label">Formulário Contato Direto</span><div class="bar-track"><div class="bar-fill" style="width: 18%; background-color: var(--red-accent);"></div></div><span class="bar-value-text">4 conv.</span></div>
+                    <div class="bar-item"><span class="bar-label">Landing Pages</span><div class="bar-track"><div class="bar-fill" style="width: 0%; background-color: #555;"></div></div><span class="bar-value-text">0 conv.</span></div>
+                </div>
+            </div>
+        </div>
 
-<div class="two-col" style="margin-top:8px;">
-  <div class="card">
-    <div class="card-title">Produtos mais vendidos (Faturamento Bruto)</div>
-    ${E.maisVendidos.map(barRow).join('')}
-  </div>
-  <div class="card">
-    <div class="card-title">Status e Faturamento Físico Conciliado</div>
-    ${E.statusPedidos.map(p => `<div class="stat-row"><span>${p.nome}</span><span class="stat-val"><span class="badge badge-${p.badge}">${p.texto}</span></span></div>`).join('')}
-    <div style="margin-top:12px;font-size:11px;color:var(--faint);">${E.statusRodape}</div>
-  </div>
-</div>
+        <div class="section-title">📧 Performance das Campanhas de E-mail Marketing (Maio)</div>
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome da Campanha</th>
+                        <th>Data de Envio</th>
+                        <th>Leads Entregues</th>
+                        <th>Taxa de Abertura</th>
+                        <th>Taxa de Cliques</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="color: var(--blue-accent); font-weight: 600;">Inverno Coleção BiiO</td>
+                        <td>29/05/2026</td>
+                        <td style="font-family: monospace;">5.104</td>
+                        <td style="font-family: monospace;">12,27%</td>
+                        <td class="up" style="font-family: monospace;">0,18%</td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--blue-accent); font-weight: 600;">Adeus, jalecos sem graça</td>
+                        <td>22/05/2026</td>
+                        <td style="font-family: monospace;">5.177</td>
+                        <td style="font-family: monospace;">13,29%</td>
+                        <td class="up" style="font-family: monospace;">0,55%</td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--blue-accent); font-weight: 600;">BiiO Corporate</td>
+                        <td>14/05/2026</td>
+                        <td style="font-family: monospace;">5.255</td>
+                        <td style="font-family: monospace;">12,40%</td>
+                        <td class="up" style="font-family: monospace;">0,65%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-<div class="two-col" style="margin-top:8px;">
-  <div class="card">
-    <div class="card-title">Páginas de Produtos Mais Vistas (GA)</div>
-    ${E.maisVistos.map(barRow).join('')}
-  </div>
-  <div class="card">
-    <div class="card-title">Termos mais buscados internamente</div>
-    ${E.buscas.map(b => `<div class="bar-row"><span class="lbl">${b.nome}</span><div class="bar-track"><div class="bar-fill" style="width:${b.pct}%;background:var(--purple);"></div></div><span class="bar-val">${b.val}</span></div>`).join('')}
-  </div>
-</div>
+        <div class="section-title">📢 Gestor de Tráfego — Campanhas Meta Ads</div>
+        <div class="grid-2">
+            <div class="card">
+                <p class="card-title">Performance do Criativo Ativo</p>
+                <table style="margin-top: 0;">
+                    <tbody>
+                        <tr><td>Anúncio Focado:</td><td style="font-weight: 600; color: var(--blue-accent);">SCRUB MASCULINO</td></tr>
+                        <tr><td>Visualizações Totais:</td><td style="font-family: monospace;">3,6 mil</td></tr>
+                        <tr><td>Cliques Registrados no Link:</td><td style="font-family: monospace; font-weight: 600;">86</td></tr>
+                        <tr><td>Taxa de Cliques Geral (CTR):</td><td class="up" style="font-family: monospace; font-weight: 600;">2,37%</td></tr>
+                        <tr><td>Orçamento de Investimento Diário:</td><td style="font-family: monospace;">R$ 55,00 / Dia</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card">
+                <p class="card-title">Páginas de Produtos Mais Procuradas (Sessões GA)</p>
+                <div class="bar-list">
+                    <div class="bar-item"><span class="bar-label">/ (Página Inicial / Home)</span><div class="bar-track"><div class="bar-fill" style="width: 100%; background-color: var(--purple-accent);"></div></div><span class="bar-value-text">1.863</span></div>
+                    <div class="bar-item"><span class="bar-label">/feminino/scrub-harmonia...</span><div class="bar-track"><div class="bar-fill" style="width: 24%; background-color: var(--purple-accent);"></div></div><span class="bar-value-text">444</span></div>
+                    <div class="bar-item"><span class="bar-label">/scrubs/scrub-bem-estar-decote-v</span><div class="bar-track"><div class="bar-fill" style="width: 16%; background-color: var(--purple-accent);"></div></div><span class="bar-value-text">307</span></div>
+                    <div class="bar-item"><span class="bar-label">/jalecos/8003-blusa-masculina...</span><div class="bar-track"><div class="bar-fill" style="width: 13%; background-color: var(--purple-accent);"></div></div><span class="bar-value-text">242</span></div>
+                </div>
+            </div>
+        </div>
 
-<div class="section-title">📊 Evolução Geral de Tráfego do Site (GA4)</div>
-<div class="two-col">
-  <div class="card">
-    <div class="card-title">Evolução Mensal de Sessões Totais</div>
-    <div class="chart-wrap"><canvas id="sessoesGaChart"></canvas></div>
-  </div>
-  <div class="card">
-    <div class="card-title">Duração Média das Sessões (Segundos)</div>
-    <div class="chart-wrap"><canvas id="duracaoGaChart"></canvas></div>
-  </div>
-</div>
+    </div>
 
-<div class="section-title">📱 Redes Sociais — Histórico Instagram (2026)</div>
-<div class="two-col">
-  <div class="card">
-    <div class="card-title">Evolução de Impressões / Visualizações (mil)</div>
-    <div class="chart-wrap"><canvas id="instaVisuChart"></canvas></div>
-  </div>
-  <div class="card">
-    <div class="card-title">Alcance de Contas Únicas (mil)</div>
-    <div class="chart-wrap"><canvas id="instaAlcaChart"></canvas></div>
-  </div>
-</div>
-
-<div class="section-title">📧 E-mail Marketing &amp; Captação RD Station (Maio/2026)</div>
-<div class="kpi-grid-2" style="margin-bottom:8px;">
-  ${kpi('Leads — Pop-up de Saída (Site)', R.leadsPopup)}
-  ${kpi('Leads — Botão WhatsApp Flutuante', R.leadsWhatsapp)}
-</div>
-
-<div class="two-col">
-  <div class="card">
-    <div class="card-title">Fontes de Atração dos Novos Leads (RD)</div>
-    ${R.fontesLeads.map(b => `<div class="bar-row"><span class="lbl">${b.nome}</span><div class="bar-track"><div class="bar-fill" style="width:${b.pct}%;background:var(--green);"></div></div><span class="bar-val">${b.val} Leads</span></div>`).join('')}
-  </div>
-  <div class="card">
-    <div class="card-title">Disparos de E-mail de Maio</div>
-    <table>
-      <thead><tr><th>Campanha</th><th>Data</th><th>Enviados</th><th>Abertura</th><th>Cliques</th></tr></thead>
-      <tbody>
-        ${D.email.campanhasAbril.map(c => `<tr><td>${c.nome}</td><td>${c.data}</td><td>${c.enviados}</td><td>${c.abertura}</td><td>${c.cliques}</td></tr>`).join('')}
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<div class="section-title">🚨 Alertas, Insights e Oportunidades</div>
-<div class="card">
-  <table>
-    <thead><tr><th>Situação Analisada</th><th>Prioridade</th><th>Ação sugerida</th></tr></thead>
-    <tbody>
-      ${D.alertas.map(a => `<tr><td style="color:var(--muted);">${a.situacao}</td><td><span class="badge badge-${a.badge}">${a.prioridade}</span></td><td>${a.acao}</td></tr>`).join('')}
-    </tbody>
-  </table>
-</div>
-
-<footer>Dashboard Comercial e de Marketing · Atualizado em ${D.atualizadoEm}</footer>
-`;
-
-const green = '#1D9E75', pink = '#D4537E', purple = '#7F77DD', amber = '#EF9F27', blue = '#378ADD', gray = '#777777';
-const gridColor = 'rgba(255,255,255,0.06)', tickColor = 'rgba(255,255,255,0.35)';
-const commonScales = {
-  x: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 10 } } },
-  y: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 10 } } }
-};
-
-/* 🚀 GRÁFICO NOVO: Comparativo Multibarras de Canais Mês a Mês */
-new Chart(document.getElementById('canaisComparativoChart'), {
-  type: 'bar',
-  data: {
-    labels: H.labels,
-    datasets: [
-      { label: 'Paid Search (Mídia Paga)', data: H.canaisPorMes.paidSearch, backgroundColor: blue, borderRadius: 3 },
-      { label: 'Direct (Acesso Direto)', data: H.canaisPorMes.direct, backgroundColor: purple, borderRadius: 3 },
-      { label: 'Organic Search (Google SEO)', data: H.canaisPorMes.organicSearch, backgroundColor: green, borderRadius: 3 },
-      { label: 'Social (Redes Sociais)', data: H.canaisPorMes.social, backgroundColor: pink, borderRadius: 3 }
-    ]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { position: 'top', labels: { color: '#fff', font: { size: 11 }, boxWidth: 12 } }
-    },
-    scales: commonScales
-  }
-});
-
-// Sessões Totais GA
-new Chart(document.getElementById('sessoesGaChart'), {
-  type: 'bar',
-  data: {
-    labels: H.labels,
-    datasets: [{ label: 'Sessões', data: H.visitasGa, backgroundColor: purple+'66', borderColor: purple, borderWidth: 1, borderRadius: 4 }]
-  },
-  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: commonScales }
-});
-
-// Duração de Sessão
-new Chart(document.getElementById('duracaoGaChart'), {
-  type: 'line',
-  data: {
-    labels: H.labels,
-    datasets: [{ label: 'Duração Média (s)', data: H.duracaoGa, borderColor: amber, backgroundColor: amber+'15', fill: true, tension: 0.3, pointRadius: 4 }]
-  },
-  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: commonScales }
-});
-
-// Instagram Visualizações
-new Chart(document.getElementById('instaVisuChart'), {
-  type: 'bar',
-  data: {
-    labels: H.labels,
-    datasets: [{ label: 'Visualizações (mil)', data: H.instaVisu, backgroundColor: pink, borderRadius: 4 }]
-  },
-  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: commonScales }
-});
-
-// Instagram Alcance
-new Chart(document.getElementById('instaAlcaChart'), {
-  type: 'line',
-  data: {
-    labels: H.labels,
-    datasets: [{ label: 'Alcance (mil)', data: H.instaAlca, borderColor: green, backgroundColor: green+'15', fill: true, tension: 0.3, pointRadius: 4 }]
-  },
-  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: commonScales }
-});
-</script>
 </body>
 </html>
-
-```
